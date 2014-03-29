@@ -1,0 +1,42 @@
+@(recommandFlowers: List[Flower])
+
+@main("欢迎来到我们的鲜花销售网站") {
+  @views.html.common.header()
+  <div>
+    <img src="@routes.Assets.at("images/index-top-bg.jpg")" width="100%">
+  </div>
+  
+  <div class="container mt10">
+    <div class="row">
+      <div class="col-md-2 pd0">
+        <ul class="nav nav-pills nav-stacked show-grid">
+          <li class="active"><a href="javascript:;">全部商品分类</a></li>
+          <li><a href="javascript:;">鲜花速递、玫瑰、百合</a></li>
+          <li><a href="javascript:;">蛋糕、品牌生日蛋糕</a></li>
+        </ul>
+
+        <ul class="nav nav-pills nav-stacked show-grid mt10">
+          <li class="active"><a href="javascript:;">热销排行</a></li>
+          <li><a href="javascript:;">鲜花/梦幻之恋 永恒的爱恋，无尽的爱</a></li>
+          <li><a href="javascript:;">鲜花/一生的期盼 喜欢你是淡淡的爱</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10">
+        <div class="right-box show-grid">
+          <h5>精品推荐</h5>
+          <ul class="clearfix">
+            @for(flower <- recommandFlowers) {
+              <li class="pull-left">
+                <a href="javascript:;" class="flower" style="background-image:url(@routes.Assets.at(flower.url))"></a>
+                <p class="text-center">描述描述</p>
+              </li>  
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  @views.html.common.footer()
+} {
+  
+}
