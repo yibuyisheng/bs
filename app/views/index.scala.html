@@ -1,7 +1,7 @@
-@(recommandFlowers: List[Flower])
+@(recommandFlowers: List[Flower], self: Option[User], request: play.mvc.Http.Request)
 
 @main("欢迎来到我们的鲜花销售网站") {
-  @views.html.common.header()
+  @views.html.common.header(self, request)
   <div>
     <img src="@routes.Assets.at("images/index-top-bg.jpg")" width="100%">
   </div>

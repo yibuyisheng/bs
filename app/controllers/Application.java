@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.sql.ResultSet;
 
-public class Application extends Controller {
+public class Application extends Base {
 
   public static Result index() {
     // try {
@@ -39,7 +39,7 @@ public class Application extends Controller {
     recommandFlowers.add(new Flower("flowers/u=2379991951,704885466&fm=56.jpg"));
     recommandFlowers.add(new Flower("flowers/u=1215724165,312236757&fm=21&gp=0.jpg"));
 
-    return ok(index.render(recommandFlowers));
+    return ok(index.render(recommandFlowers, self(), request()));
   }
 
   public static Result hotFlowers() {

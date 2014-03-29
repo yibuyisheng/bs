@@ -1,9 +1,9 @@
-@()
+@(self: Option[User], request: play.mvc.Http.Request)
 
 @main("注册") {
-  @views.html.common.header()
+  @views.html.common.header(self, request)
   
-  <form class="container">
+  <form class="container" id="regist">
     <div class="input-group mt10">
       <span class="input-group-addon">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</span>
       <input type="text" class="form-control" name="nickname" placeholder="请输入昵称">
@@ -36,47 +36,5 @@
 
   @views.html.common.footer()
 } {
-  <script>
-    $(function() {
-      var $form = $('form.container');
-      var $nickname = $('input[name="nickname"]');
-      var $email = $('input[name="email"]');
-      var $truename = $('input[name="truename"]');
-      var $password = $('password');
-      var $confirmPassword = $('confirm-password');
-
-      var showError = function(msg) {
-        $('#error-text').addClass('has-error').find('.control-label').text(msg);
-      };
-      var clearError = function() {
-        $('#error-text').find('.control-label').text('')
-      };
-      $form.find('button').on('click', function() {
-        if (!$nickname.val()) {
-          return showError('请输入昵称！');
-        }
-        if (!$truename.val()) {
-          return showError('请输入真实姓名！');
-        }
-        if (!$password.val()) {
-          return showError('请输入密码！');
-        }
-        if ($password.val() !== $confirmPassword()) {
-          return showError('两次密码输入不一致！');
-        }
-
-        $.ajax({
-          url: '/ajax/user/regist',
-          type: 'post',
-          data: $form.serialize()
-        }).done(function(data) {
-          if (data.status !== 1) {
-            return showError(data.msg);
-          } else {
-            return clearError();
-          }
-        });
-      });
-    });
-  </script>
+  <script src="@routes.Assets.at("javascripts/modules/user.js")"></script>
 }
