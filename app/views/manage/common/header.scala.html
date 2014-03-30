@@ -1,0 +1,12 @@
+@(request: play.mvc.Http.Request)
+<nav class="navbar navbar-red m0" role="navigation">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li class="dropdown@if(request.path() == "/manage"){ active}">
+                <a href="javascript:;">
+                    添加花
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

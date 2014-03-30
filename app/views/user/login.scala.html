@@ -1,23 +1,27 @@
-@(self: Option[User], request: play.mvc.Http.Request)
+@(parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
 
 @main("登录") {
-@views.html.common.header(self, request)
+@views.html.common.header(parentList, menuClassify, self, request)
 
-<form class="container" id="login">
-  <div class="input-group mt10">
-    <span class="input-group-addon">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span>
-    <input type="text" class="form-control" name="account" placeholder="请输入昵称或者注册邮箱">
+<form class="container form-horizontal mt10" id="login" role="form">
+  <div class="form-group">
+    <label class="col-sm-1 control-label">账号</label>
+    <div class="col-sm-11">
+      <input type="text" class="form-control" name="account" placeholder="请输入昵称或者注册邮箱">
+    </div>
   </div>
-    <div class="input-group mt10">
-      <span class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
-      <input type="password" class="form-control" name="password" placeholder="请输入密码">
+    <div class="form-group">
+      <label class="col-sm-1 control-label">密码</label>
+      <div class="col-sm-11">
+        <input type="password" class="form-control" name="password" placeholder="请输入密码">
+      </div>
     </div>
     <div class="clearfix mt10 row">
-      <div class="col-md-11 text-right mt10" id="error-text">
+      <div class="col-md-11 text-right" id="error-text">
         <label class="control-label"></label>
       </div>
       <div class="col-md-1">
-        <button type="button" class="btn btn-primary pull-right">提交</button>
+        <button type="button" class="btn btn-default pull-right">提交</button>
       </div>
   </div>
 </form>

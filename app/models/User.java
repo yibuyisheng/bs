@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
 
 public class User {
+  public int id;
   public String nickname;
   public String email;
   public String truename;
@@ -15,6 +16,12 @@ public class User {
 
   public User() {}
   public User(String nickname, String email, String truename, String password) {
+    this.nickname = nickname;
+    this.email = email;
+    this.truename = truename;
+    this.password = password;
+  }
+  public User(int id, String nickname, String email, String truename, String password) {
     this.nickname = nickname;
     this.email = email;
     this.truename = truename;

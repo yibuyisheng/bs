@@ -1,35 +1,45 @@
-@(self: Option[User], request: play.mvc.Http.Request)
+@(parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
 
 @main("注册") {
-  @views.html.common.header(self, request)
+  @views.html.common.header(parentList, menuClassify, self, request)
   
-  <form class="container" id="regist">
-    <div class="input-group mt10">
-      <span class="input-group-addon">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</span>
-      <input type="text" class="form-control" name="nickname" placeholder="请输入昵称">
+  <form class="container form-horizontal mt10" id="regist" role="form">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">昵称</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="nickname" placeholder="请输入昵称">
+      </div>
     </div>
-    <div class="input-group mt10">
-      <span class="input-group-addon">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span>
-      <input type="email" class="form-control" name="email" placeholder="请输入邮箱">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">邮箱</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" name="email" placeholder="请输入邮箱">
+      </div>
     </div>
-    <div class="input-group mt10">
-      <span class="input-group-addon">真实姓名：</span>
-      <input type="text" class="form-control" name="truename" placeholder="请输入真实姓名">
+    <div class="form-group mt10">
+      <label class="col-sm-2 control-label">真实姓名</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="truename" placeholder="请输入真实姓名">
+      </div>
     </div>
-    <div class="input-group mt10">
-      <span class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
-      <input type="password" class="form-control" name="password" placeholder="请输入密码">
+    <div class="form-group mt10">
+      <label class="col-sm-2 control-label">密码</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="password" placeholder="请输入密码">
+      </div>
     </div>
-    <div class="input-group mt10">
-      <span class="input-group-addon">确认密码：</span>
-      <input type="password" class="form-control" name="confirm-password" placeholder="确认您的密码">
+    <div class="form-group mt10">
+      <label class="col-sm-2 control-label">确认密码</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="confirm-password" placeholder="确认您的密码">
+      </div>
     </div>
     <div class="clearfix mt10 row">
-      <div class="col-md-11 text-right mt10" id="error-text">
+      <div class="col-md-11 text-right" id="error-text">
         <label class="control-label"></label>
       </div>
       <div class="col-md-1">
-        <button type="button" class="btn btn-primary pull-right">提交</button>
+        <button type="button" class="btn btn-default pull-right">提交</button>
       </div>
     </div>
   </form>

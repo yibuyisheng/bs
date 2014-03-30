@@ -12,13 +12,18 @@ import play.data.*;
 import models.*;
 
 import play.libs.Json;
+
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class UserController extends Base {
 
-  public static Result regist() {
-    return ok(views.html.user.regist.render(self(), request()));
+  public static Result regist() throws Exception {
+    Map<String, Object> map = menuClassify();
+    List<Classify> parentList = (List<Classify>)map.get("parents");
+    Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
+    return ok(views.html.user.regist.render(parentList, menuClassify, self(), request()));
   }
 
   private static Pattern nicknamePtn = Pattern.compile("^[a-z]{6,12}$");
@@ -63,9 +68,11 @@ public class UserController extends Base {
     return ok(result.put("status", 1));
   }
 
-  public static Result login() {
-    Http.Request r = request();
-    return ok(views.html.user.login.render(self(), request()));
+  public static Result login() throws Exception {
+    Map<String, Object> map = menuClassify();
+    List<Classify> parentList = (List<Classify>)map.get("parents");
+    Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
+    return ok(views.html.user.login.render(parentList, menuClassify, self(), request()));
   }
   public static Result loginAjax() {
     Map<String, String[]> data = request().body().asFormUrlEncoded();

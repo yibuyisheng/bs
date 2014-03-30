@@ -47,6 +47,7 @@ public class Query {
   }
 
   private static void build(String sql, List<Object> params, PreparedStatement ps) throws SQLException {
+    if (params == null) return;
     for (int i = 0, il = params.size(); i < il; i ++) {
       Object value = params.get(i);
       if (value instanceof Integer) {

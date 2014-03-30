@@ -1,7 +1,7 @@
-@(recommandFlowers: List[Flower], self: Option[User], request: play.mvc.Http.Request)
+@(parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], recommandFlowers: List[Flower], self: Option[User], request: play.mvc.Http.Request)
 
 @main("欢迎来到我们的鲜花销售网站") {
-  @views.html.common.header(self, request)
+  @views.html.common.header(parentList, menuClassify, self, request)
   <div>
     <img src="@routes.Assets.at("images/index-top-bg.jpg")" width="100%">
   </div>
@@ -27,7 +27,7 @@
           <ul class="clearfix">
             @for(flower <- recommandFlowers) {
               <li class="pull-left">
-                <a href="javascript:;" class="flower" style="background-image:url(@routes.Assets.at(flower.url))"></a>
+                <a href="javascript:;" class="flower" style="background-image:url(@routes.Assets.at(flower.image))"></a>
                 <p class="text-center">描述描述</p>
               </li>  
             }

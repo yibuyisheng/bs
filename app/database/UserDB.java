@@ -47,6 +47,7 @@ public class UserDB {
       public void queryCb(ResultSet rs) throws Exception {
         super.queryCb(rs);
         if (rs.next()) {
+          ret.put("id", String.valueOf(rs.getInt("id")));
           ret.put("nickname", rs.getString("nickname"));
           ret.put("email", rs.getString("email"));
           ret.put("truename", rs.getString("truename"));
@@ -54,6 +55,6 @@ public class UserDB {
         }
       }
     });
-    return ret.keySet().size() == 0 ? null : new User(ret.get("nickname"), ret.get("email"), ret.get("truename"), ret.get("password"));
+    return ret.keySet().size() == 0 ? null : new User(Integer.parseInt(ret.get("id"), 0), ret.get("nickname"), ret.get("email"), ret.get("truename"), ret.get("password"));
   }
 }
