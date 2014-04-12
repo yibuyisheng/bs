@@ -20,3 +20,5 @@ GET     /user/out                   controllers.UserController.out()
 GET     /manage                     controllers.ManageController.manage()
 GET     /flower/add                 controllers.ManageController.manage()
 POST    /flower/add/ajax            controllers.ManageController.addFlowerAjax()
+
+GET     /classify/:cid              controllers.FlowerController.classify(cid: Int)

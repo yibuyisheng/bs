@@ -1,0 +1,41 @@
+@(classify: Classify, flowers: List[Flower], parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+
+@main("鲜花分类") {
+@views.html.common.header(parentList, menuClassify, self, request)
+
+<div class="container">
+    <div class="row mt10 right-box show-grid">
+        <h5>@classify.name</h5>
+        <ul class="clearfix">
+            <li class="pull-left">
+                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
+                <p class="text-center">描述描述</p>
+            </li>
+            <li class="pull-left">
+                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1710403397,3137808111&amp;fm=21&amp;gp=0.jpg)"></a>
+                <p class="text-center">描述描述</p>
+            </li>
+            <li class="pull-left">
+                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=2379991951,704885466&amp;fm=56.jpg)"></a>
+                <p class="text-center">描述描述</p>
+            </li>
+            <li class="pull-left">
+                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
+                <p class="text-center">描述描述</p>
+            </li>
+            <li class="pull-left">
+                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
+                <p class="text-center">描述描述</p>
+            </li>
+            <li class="pull-left">
+                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
+                <p class="text-center">描述描述</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@views.html.common.footer()
+} {
+<script src="@routes.Assets.at("javascripts/modules/user.js")"></script>
+}
