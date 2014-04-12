@@ -7,6 +7,12 @@
     <div class="row mt10 right-box show-grid">
         <h5>@classify.name</h5>
         <ul class="clearfix">
+            @flowers.map{ flower =>
+                <li class="pull-left">
+                    <a href="/flower/@flower.id" class="flower" style="background-image:url(@flower.image)"></a>
+                    <p class="text-center">@flower.abs</p>
+                </li>
+            }
             <li class="pull-left">
                 <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
                 <p class="text-center">描述描述</p>

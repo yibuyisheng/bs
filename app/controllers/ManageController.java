@@ -23,7 +23,7 @@ public class ManageController extends Base {
   private static Pattern titlePtn = Pattern.compile("^[^\\x00-\\xffa-zA-Z0-9]{0,50}$");
   private static Pattern absPtn = Pattern.compile("^[^\\x00-\\xffa-zA-Z0-9]{0,300}$");
   private static Pattern pricePtn = Pattern.compile("^[1-9]{1}[0-9]*(\\.{1}[0-9]+)*$");
-  private static Pattern imagePtn = Pattern.compile("^[^\\x00-\\xffa-zA-Z0-9]{0,200}$");
+  private static Pattern imagePtn = Pattern.compile(".{0,2000}$");
   private static Pattern detailPtn = Pattern.compile("^[^\\x00-\\xffa-zA-Z0-9]*$");
   private static Pattern classifyPtn = Pattern.compile("^[1-9]{1}[0-9]*$");
   public static Result addFlowerAjax() throws Exception {

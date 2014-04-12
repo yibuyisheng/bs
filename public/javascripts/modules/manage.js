@@ -1,4 +1,17 @@
 $(function() {
+	var editor;
+  KindEditor.ready(function(K) {
+    editor = K.create('textarea[name="detail"]', {
+      resizeType : 1,
+      allowPreviewEmoticons : false,
+      allowImageUpload : false,
+      items : [
+        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+        'insertunorderedlist', '|', 'image']
+    });
+  });
+
 	var $form = $('#manage');
 	var $title = $form.find('input[name="title"]');
 	var $abs = $form.find('input[name="abstract"]');
@@ -17,6 +30,8 @@ $(function() {
     $('#error-text').removeClass('has-error').find('.control-label').text('')
   };
 	$form.find('.btn').on('click', function() {
+	  if (!editor) return showError('控件尚未加载完毕，休息会儿吧！');
+
 		$.ajax({
 			type: 'post',
 			url: '/flower/add/ajax',
@@ -29,18 +44,4 @@ $(function() {
 			showSuccess('添加成功！');
 		});
 	});
-
-
-	var editor;
-  KindEditor.ready(function(K) {
-    editor = K.create('textarea[name="detail"]', {
-      resizeType : 1,
-      allowPreviewEmoticons : false,
-      allowImageUpload : false,
-      items : [
-        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-        'insertunorderedlist', '|', 'image']
-    });
-  });
 });

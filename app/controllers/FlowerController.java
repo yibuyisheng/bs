@@ -19,6 +19,29 @@ public class FlowerController extends Base {
         List<Classify> parentList = (List<Classify>)map.get("parents");
         Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
 
-        return ok(views.html.flower.flowers.render(ClassifyDB.getClassifyById(cid), flowers, parentList, (Map<Classify, List<Classify>>)map.get("parentChildMap"), self(), request()));
+        return ok(views.html.flower.flowers.render(
+                ClassifyDB.getClassifyById(cid),
+                flowers,
+                parentList,
+                (Map<Classify, List<Classify>>)map.get("parentChildMap"),
+                self(),
+                request())
+        );
+    }
+
+    public static Result flower(int fid) throws Exception {
+        Flower flower = FlowerDB.get(fid);
+
+        Map<String, Object> map = menuClassify();
+        List<Classify> parentList = (List<Classify>)map.get("parents");
+        Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
+
+        return ok(views.html.flower.flower.render(
+                flower,
+                parentList,
+                (Map<Classify, List<Classify>>)map.get("parentChildMap"),
+                self(),
+                request())
+        );
     }
 }

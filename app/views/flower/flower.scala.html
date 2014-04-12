@@ -1,0 +1,41 @@
+@(flower: Flower, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+
+@main("鲜花分类") {
+@views.html.common.header(parentList, menuClassify, self, request)
+
+<div class="container show-grid">
+    <h5>@flower.title</h5>
+    <div class="row mt10 right-box">
+        <div class="col-md-6">
+            <img src="@flower.image" width="100%">
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-2 text-right">类别：</div>
+                <div class="col-md-10">@flower.classify</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 text-right">说明：</div>
+                <div class="col-md-10">@flower.abs</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 text-right">现价：</div>
+                <div class="col-md-10">@flower.price</div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">加入购物车</button>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="detail">
+        @flower.detail
+    </div>
+</div>
+
+@views.html.common.footer()
+} {
+<script src="@routes.Assets.at("javascripts/modules/user.js")"></script>
+}
