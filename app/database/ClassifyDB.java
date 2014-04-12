@@ -37,7 +37,7 @@ public class ClassifyDB {
         params.add(cid);
 
         final Map<String, String> ret = new HashMap<String, String>();
-        Query.query("select * from Classify where id=?", params, new DataBaseCallback() {
+        Query.query("select * from classify where id=?", params, new DataBaseCallback() {
             @Override
             public void queryCb(ResultSet rs) throws Exception {
                 super.queryCb(rs);
