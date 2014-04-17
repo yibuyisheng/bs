@@ -1,8 +1,10 @@
 package database;
 
 import models.Flower;
+import utils.ListUtil;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -20,6 +22,20 @@ public class FlowerDB {
     Query.update("insert into flower(title, abstract, price, image, detail, classify) values(?,?,?,?,?,?)", params);
   }
 
+    private static void fetchList(List<Flower> flowers, ResultSet rs) throws SQLException {
+        while(rs.next()) {
+            Flower flower = new Flower();
+            flower.id = rs.getInt("id");
+            flower.classify = rs.getInt("classify");
+            flower.detail = rs.getString("detail");
+            flower.image = rs.getString("image");
+            flower.abs = rs.getString("abstract");
+            flower.price = rs.getFloat("price");
+            flower.title = rs.getString("title");
+            flowers.add(flower);
+        }
+    }
+
     public static List<Flower> getByClassify(int cid) throws Exception {
         String sql = "select * from flower where classify=?";
         List<Object> params = new ArrayList<Object>();
@@ -29,18 +45,8 @@ public class FlowerDB {
         Query.query(sql, params, new DataBaseCallback() {
             @Override
             public void queryCb(ResultSet rs) throws Exception {
-                super.queryCb(rs);
-                while(rs.next()) {
-                    Flower flower = new Flower();
-                    flower.id = rs.getInt("id");
-                    flower.classify = rs.getInt("classify");
-                    flower.detail = rs.getString("detail");
-                    flower.image = rs.getString("image");
-                    flower.abs = rs.getString("abstract");
-                    flower.price = rs.getFloat("price");
-                    flower.title = rs.getString("title");
-                    flowers.add(flower);
-                }
+            super.queryCb(rs);
+            fetchList(flowers, rs);
             }
         });
 
@@ -78,5 +84,18 @@ public class FlowerDB {
                         ret.get("detail"),
                         Integer.parseInt(ret.get("classify"))
                 );
+    }
+
+    public static List<Flower> getByIds(List<Integer> ids) throws Exception {
+        String sql = "select * from flower where id in (" + ListUtil.mkString(ids, ",") + ")";
+        final List<Flower> flowers = new LinkedList<Flower>();
+        Query.query(sql, null, new DataBaseCallback() {
+            @Override
+            public void queryCb(ResultSet rs) throws Exception {
+                super.queryCb(rs);
+                fetchList(flowers, rs);
+            }
+        });
+        return flowers;
     }
 }

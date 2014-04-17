@@ -55,6 +55,6 @@ public class UserDB {
         }
       }
     });
-    return ret.keySet().size() == 0 ? null : new User(Integer.parseInt(ret.get("id"), 0), ret.get("nickname"), ret.get("email"), ret.get("truename"), ret.get("password"));
+    return ret.keySet().size() == 0 ? null : new User(Integer.parseInt(ret.get("id")), ret.get("nickname"), ret.get("email"), ret.get("truename"), ret.get("password"));
   }
 }

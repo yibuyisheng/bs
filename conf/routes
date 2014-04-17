@@ -23,3 +23,7 @@ POST    /flower/add/ajax            controllers.ManageController.addFlowerAjax()
 
 GET     /classify/:cid              controllers.FlowerController.classify(cid: Int)
 GET     /flower/:fid                controllers.FlowerController.flower(fid: Int)
+
+POST    /cart/add/:fid/:count       controllers.CartController.add(fid: Int, count: Int)
+GET     /cart                       controllers.CartController.all()
+POST    /cart/del/:cid              controllers.CartController.delete(cid: Int)

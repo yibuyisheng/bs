@@ -6,7 +6,6 @@ import models.Classify;
 import models.User;
 import play.mvc.Controller;
 import scala.Option;
-import scala.Some;
 
 import java.util.*;
 

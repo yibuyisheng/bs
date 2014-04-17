@@ -1,0 +1,35 @@
+@(carts: List[Cart], flowers: List[Flower], parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+
+@main("我的购物车") {
+@views.html.common.header(parentList, menuClassify, self, request)
+
+<div class="container show-grid">
+    <div class="row">
+        <div class="col-md-1">编号</div>
+        <div class="col-md-5">商品名称</div>
+        <div class="col-md-2">价格</div>
+        <div class="col-md-2">数量</div>
+        <div class="col-md-2">操作</div>
+    </div>
+    @carts.map{ c =>
+        @flowers.filter(f => f.id == c.flowerId).headOption.map{f =>
+            <div class="row">
+                <div class="col-md-1">@c.id</div>
+                <div class="col-md-5">@f.title</div>
+                <div class="col-md-2">@f.price</div>
+                <div class="col-md-2">@c.count</div>
+                <div class="col-md-2">
+                    <a href="javascript:;" data-cid="@c.id" class="del">删除</a>
+                </div>
+            </div>
+        }
+    }
+    @if(carts.size() == 0){
+        <div class="text-center">暂无商品</div>
+    }
+</div>
+
+@views.html.common.footer()
+} {
+<script src="@routes.Assets.at("javascripts/modules/carts.js")"></script>
+}
