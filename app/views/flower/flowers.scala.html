@@ -1,7 +1,7 @@
 @(classify: Classify, flowers: List[Flower], parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
 
 @main("鲜花分类") {
-@views.html.common.header(parentList, menuClassify, self, request)
+@views.html.common.header(parentList, menuClassify, self, request, Some(classify))
 
 <div class="container">
     <div class="row mt10 right-box show-grid">

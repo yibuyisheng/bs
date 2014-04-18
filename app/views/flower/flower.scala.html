@@ -1,7 +1,7 @@
-@(flower: Flower, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+@(currentClassify: Classify, flower: Flower, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
 
 @main("鲜花分类") {
-@views.html.common.header(parentList, menuClassify, self, request)
+@views.html.common.header(parentList, menuClassify, self, request, Some(currentClassify))
 
 <div class="container show-grid">
     <h5>@flower.title</h5>

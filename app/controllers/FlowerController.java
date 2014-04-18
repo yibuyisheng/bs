@@ -36,12 +36,15 @@ public class FlowerController extends Base {
         List<Classify> parentList = (List<Classify>)map.get("parents");
         Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
 
+        Classify currentClassify = ClassifyDB.getClassifyById(flower.classify);
         return ok(views.html.flower.flower.render(
+                currentClassify,
                 flower,
                 parentList,
                 (Map<Classify, List<Classify>>)map.get("parentChildMap"),
                 self(),
-                request())
+                request()
+            )
         );
     }
 }
