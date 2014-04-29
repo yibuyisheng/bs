@@ -29,3 +29,4 @@ GET     /cart                       controllers.CartController.all()
 POST    /cart/del/:cid              controllers.CartController.delete(cid: Int)
 
 GET     /cash                       controllers.CashController.cash()
+GET     /order/create               controllers.CashController.createOrder()
