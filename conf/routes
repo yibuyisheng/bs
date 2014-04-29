@@ -27,3 +27,5 @@ GET     /flower/:fid                controllers.FlowerController.flower(fid: Int
 POST    /cart/add/:fid/:count       controllers.CartController.add(fid: Int, count: Int)
 GET     /cart                       controllers.CartController.all()
 POST    /cart/del/:cid              controllers.CartController.delete(cid: Int)
+
+GET     /cash                       controllers.CashController.cash()
