@@ -22,6 +22,7 @@ public class User {
     this.password = password;
   }
   public User(int id, String nickname, String email, String truename, String password) {
+    this.id = id;
     this.nickname = nickname;
     this.email = email;
     this.truename = truename;

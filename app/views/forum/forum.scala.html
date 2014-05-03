@@ -1,0 +1,56 @@
+@(forums: List[Forum], page: Int, pageSize: Int, totalPage: Int, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+
+@main("论坛") {
+@views.html.common.header(parentList, menuClassify, self, request)
+  
+  <div class="container text-right"><a href="/forum/add">来一发</a></div>
+  <div class="container">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">所有帖子</h3>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>标题</th>
+            <th>更新时间</th>
+            <th>创建时间</th>
+            <th>回复数</th>
+            <th>查看数</th>
+          </tr>
+        </thead>
+        <tbody>
+        @forums.map{ forum =>
+          <tr>
+            <td>
+              <a href="/forum/detail/@forum.id" target="_blank">@forum.title</a>
+            </td>
+            <td>
+              @forum.refreshTime
+            </td>
+            <td>
+              @forum.createTime
+            </td>
+            <td>
+              @forum.replyNo
+            </td>
+            <td>
+              @forum.viewNo
+            </td>
+          </tr>
+        }
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" align="right">@views.html.common.page("/forum", page, pageSize, totalPage)</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  
+
+@views.html.common.footer()
+} {
+<script src="@routes.Assets.at("javascripts/modules/forum.js")"></script>
+}

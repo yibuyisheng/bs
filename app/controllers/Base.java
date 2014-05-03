@@ -12,8 +12,10 @@ import java.util.*;
 /**
  * Created by zhangli on 14-3-29.
  */
-public class Base extends Controller {
+abstract class Base extends Controller {
   public static String getString(String key, String dftStr, Map<String, String[]> data) {
+    if (!data.containsKey(key)) return dftStr;
+    
     String[] value = data.get(key);
     if (value == null || value.length == 0) return dftStr;
 

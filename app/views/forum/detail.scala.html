@@ -1,0 +1,60 @@
+@(replys: List[Forum], page: Int, pageSize: Int, totalPage: Int, forum: Forum, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+
+@main("论坛") {
+@views.html.common.header(parentList, menuClassify, self, request)
+  
+  @if(forum == null){
+    不存在
+  }else{
+    <div class="container">
+      <h1 class="text-center">@forum.title</h1>
+      <div>
+        @forum.content
+      </div>
+    </div>
+    <div class="container">
+      <form class="container form-horizontal mt10 mb10" role="form">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">回复</label>
+          <div class="col-sm-11">
+            <textarea class="form-control" name="content"></textarea>
+          </div>
+        </div>
+        <div class="clearfix row">
+          <div class="col-md-11 text-right" id="error-text">
+            <label class="control-label"></label>
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-default pull-right" data-fid="@forum.id">提交</button>
+          </div>
+        </div>
+      </form>  
+    </div>
+    <div class="container">
+      @replys.map{reply =>
+        <div class="media">
+          <a class="pull-left" href="javascript:;">
+            <h4 class="media-heading">
+              @if(reply.provider == null){
+                @reply.providerId
+              }else{
+                @reply.provider.nickname
+              }
+            </h4>
+          </a>
+          <div class="media-body">
+            @reply.content
+          </div>
+        </div>
+      }
+      <div class="row text-right">
+        @views.html.common.page("/forum/detail/" + forum.id, page, pageSize, totalPage)
+      </div>
+    </div>
+  }
+
+@views.html.common.footer()
+} {
+<script src="@routes.Assets.at("lib/kind-editor/kindeditor-all.js")"></script>
+<script src="@routes.Assets.at("javascripts/modules/forum.js")"></script>
+}

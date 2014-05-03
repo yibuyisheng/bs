@@ -23,9 +23,9 @@ ul {
   margin-bottom: 10px;
 }
 
-* {
+/** {
   border-radius: 0 !important;
-}
+}*/
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover {
   background-color: #FF4326;
@@ -41,9 +41,8 @@ ul {
 }
 
 .flower {
-  width: 215px;
+  width: 100%;
   height: 200px;
-  margin: 10px;
   background-repeat: no-repeat;
   background-position: center;
   display: block;
@@ -61,6 +60,6 @@ ul {
   color: white;
   font-weight: bold;
 }
-.navbar-red ul.nav li.active a, .navbar-red ul.nav li a:hover, .navbar-red ul.nav li a:focus, .navbar-red .nav .open>a {
+.navbar-red ul.nav li.active>a, .navbar-red ul.nav li>a:hover, .navbar-red ul.nav li>a:focus, .navbar-red .nav .open>a {
   background: #c10000;
 }

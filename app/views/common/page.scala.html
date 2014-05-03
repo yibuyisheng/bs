@@ -1,0 +1,18 @@
+@(url: String, page: Int, pageSize: Int, totalPage: Int)
+<ul class="pagination pagination-sm m0">
+  <li><a href="@url?page=1">首页</a></li>
+  @if(page - 2 > 1) {
+    <li class="disabled"><a href="javascript:;">...</a></li>
+  }
+  @for(index <- page - 2 to page + 2) {
+    @if(index >= 1 && index <= totalPage) {
+      <li@if(index == page){ class="active"}>
+        <a href="@url?page=@index">@index</a>
+      </li>
+    }
+  }
+  @if(page + 2 < totalPage) {
+    <li class="disabled"><a href="javascript:;">...</a></li>
+  }
+  <li><a href="@url?page=@totalPage">末页</a></li>
+</ul>

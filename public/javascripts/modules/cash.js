@@ -20,18 +20,18 @@ $(function() {
   var $leavaNameMyName = $('*[name="leave-name-my-name"]');
 
   var validate = function() {
-    if (!$ordererName.val()) return alert('请输入订购人姓名！'), $ordererName.focus(), false;
-    if (!$ordererPhone.val()) return alert('请输入订购人电话！'), $ordererPhone.focus(), false;
-    if (!$ordererMobile.val()) return alert('请输入订购人手机！'), $ordererMobile.focus(), false;
-    if (!$ordererProvince.val()) return alert('请输入订购人省份！'), $ordererProvince.focus(), false;
-    if (!$ordererCity.val()) return alert('请输入订购人城市！'), $ordererCity.focus(), false;
-    if (!$ordererEmail.val()) return alert('请输入订购人邮件！'), $ordererEmail.focus(), false;
-    if (!$consigneeName.val()) return alert('请输入收货人姓名！'), $consigneeName.focus(), false;
-    if (!$consigneePhone.val()) return alert('请输入收货人电话！'), $consigneePhone.focus(), false;
-    if (!$consigneeMobile.val()) return alert('请输入收货人手机！'), $consigneeMobile.focus(), false;
-    if (!$consigneeProvince.val()) return alert('请输入收货人省份！'), $consigneeProvince.focus(), false;
-    if (!$consigneeCity.val()) return alert('请输入收货人城市！'), $consigneeCity.focus(), false;
-    if (!$consigneeAddress.val()) return alert('请输入收货人地址！'), $consigneeAddress.focus(), false;
+    if (!$ordererName.val()) return $('.warn').modal('show').find('.modal-body').html('请输入订购人姓名！'), $ordererName.focus(), false;
+    if (!$ordererPhone.val()) return $('.warn').modal('show').find('.modal-body').html('请输入订购人电话！'), $ordererPhone.focus(), false;
+    if (!$ordererMobile.val()) return $('.warn').modal('show').find('.modal-body').html('请输入订购人手机！'), $ordererMobile.focus(), false;
+    if (!$ordererProvince.val()) return $('.warn').modal('show').find('.modal-body').html('请输入订购人省份！'), $ordererProvince.focus(), false;
+    if (!$ordererCity.val()) return $('.warn').modal('show').find('.modal-body').html('请输入订购人城市！'), $ordererCity.focus(), false;
+    if (!$ordererEmail.val()) return $('.warn').modal('show').find('.modal-body').html('请输入订购人邮件！'), $ordererEmail.focus(), false;
+    if (!$consigneeName.val()) return $('.warn').modal('show').find('.modal-body').html('请输入收货人姓名！'), $consigneeName.focus(), false;
+    if (!$consigneePhone.val()) return $('.warn').modal('show').find('.modal-body').html('请输入收货人电话！'), $consigneePhone.focus(), false;
+    if (!$consigneeMobile.val()) return $('.warn').modal('show').find('.modal-body').html('请输入收货人手机！'), $consigneeMobile.focus(), false;
+    if (!$consigneeProvince.val()) return $('.warn').modal('show').find('.modal-body').html('请输入收货人省份！'), $consigneeProvince.focus(), false;
+    if (!$consigneeCity.val()) return $('.warn').modal('show').find('.modal-body').html('请输入收货人城市！'), $consigneeCity.focus(), false;
+    if (!$consigneeAddress.val()) return $('.warn').modal('show').find('.modal-body').html('请输入收货人地址！'), $consigneeAddress.focus(), false;
 
     return true;
   };
@@ -41,8 +41,10 @@ $(function() {
       type: 'post',
       url: '/order/create'
     }).done(function(data) {
-      if (data.status !== 1) return alert(data.msg ? data.msg : '未知错误！');
-      alert('提交成功！');
+      if (data.status !== 1) {
+        return $('.error').modal('show').find('.modal-body').html(data.msg ? data.msg : '未知错误！');
+      }
+      $('.success').modal('show').find('.modal-body').html('提交成功！');
     });
   });
 });

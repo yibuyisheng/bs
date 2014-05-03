@@ -3,41 +3,24 @@
 @main("鲜花分类") {
 @views.html.common.header(parentList, menuClassify, self, request, Some(classify))
 
-<div class="container">
-    <div class="row mt10 right-box show-grid">
-        <h5>@classify.name</h5>
-        <ul class="clearfix">
-            @flowers.map{ flower =>
-                <li class="pull-left">
-                    <a href="/flower/@flower.id" class="flower" style="background-image:url(@flower.image)"></a>
-                    <p class="text-center">@flower.abs</p>
-                </li>
+<div class="container mt10">
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title">精品推荐</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          @for((flower, index) <- flowers zipWithIndex){
+            <div class="col-md-4">
+              <a href="/flower/@flower.id" class="flower" style="background-image:url(@flower.image)"></a>
+              <p class="text-center">@flower.title</p>
+            </div>
+            @if((index + 1) % 3 == 0){
+              </div><div class="row">
             }
-            <li class="pull-left">
-                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
-                <p class="text-center">描述描述</p>
-            </li>
-            <li class="pull-left">
-                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1710403397,3137808111&amp;fm=21&amp;gp=0.jpg)"></a>
-                <p class="text-center">描述描述</p>
-            </li>
-            <li class="pull-left">
-                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=2379991951,704885466&amp;fm=56.jpg)"></a>
-                <p class="text-center">描述描述</p>
-            </li>
-            <li class="pull-left">
-                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
-                <p class="text-center">描述描述</p>
-            </li>
-            <li class="pull-left">
-                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
-                <p class="text-center">描述描述</p>
-            </li>
-            <li class="pull-left">
-                <a href="javascript:;" class="flower" style="background-image:url(/assets/flowers/u=1215724165,312236757&amp;fm=21&amp;gp=0.jpg)"></a>
-                <p class="text-center">描述描述</p>
-            </li>
-        </ul>
+          }
+        </div>
+      </div>
     </div>
 </div>
 

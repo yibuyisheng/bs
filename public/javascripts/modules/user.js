@@ -72,7 +72,16 @@ $(function() {
         return showError(data.msg);
       } else {
         clearError();
-        window.location.assign('/');
+
+        // 跳转
+        var url = '/';
+        if (window.location.search) {
+          var start = window.location.search.indexOf('url=');
+          var end = window.location.search.indexOf('&', start);
+          end = end === -1 ? window.location.search.length : end;
+          var url = window.location.search.slice(start + 4, end);
+        }
+        window.location.assign(url);
       }
     });
   });

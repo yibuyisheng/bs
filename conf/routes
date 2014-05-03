@@ -30,3 +30,9 @@ POST    /cart/del/:cid              controllers.CartController.delete(cid: Int)
 
 GET     /cash                       controllers.CashController.cash()
 GET     /order/create               controllers.CashController.createOrder()
+
+GET     /forum                      controllers.ForumController.forum()
+GET     /forum/add                  controllers.ForumController.add()
+POST    /forum/add                  controllers.ForumController.save()
+GET     /forum/detail/:fid          controllers.ForumController.detail(fid: Int)
+POST    /forum/reply/:fid           controllers.ForumController.reply(fid: Int)

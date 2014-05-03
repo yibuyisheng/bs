@@ -8,6 +8,7 @@ import models.User;
 
 import java.sql.ResultSet;
 import java.util.*;
+import utils.*;
 
 public class UserDB {
   public static Boolean existsByNicknameOrEmail(String nickname, String email) throws Exception {
@@ -41,20 +42,40 @@ public class UserDB {
     params.add(account);
     params.add(account);
 
-    final Map<String, String> ret = new HashMap<String, String>();
+    final User user = new User();
+    user.id = 0;
     Query.query("select * from User where nickname=? or email=? limit 0,1", params, new DataBaseCallback() {
-        @Override
+      @Override
       public void queryCb(ResultSet rs) throws Exception {
         super.queryCb(rs);
         if (rs.next()) {
-          ret.put("id", String.valueOf(rs.getInt("id")));
-          ret.put("nickname", rs.getString("nickname"));
-          ret.put("email", rs.getString("email"));
-          ret.put("truename", rs.getString("truename"));
-          ret.put("password", rs.getString("password"));
+          user.id = rs.getInt("id");
+          user.nickname = rs.getString("nickname");
+          user.email = rs.getString("email");
+          user.truename = rs.getString("truename");
+          user.password = rs.getString("password");
         }
       }
     });
-    return ret.keySet().size() == 0 ? null : new User(Integer.parseInt(ret.get("id")), ret.get("nickname"), ret.get("email"), ret.get("truename"), ret.get("password"));
+    return user.id == 0 ? null : user;
+  }
+
+  public static Map<Integer, User> getByIds(List<Integer> ids) throws Exception {
+    if (ids.size() == 0) return new HashMap<Integer, User>();
+
+    String sql = "select * from User where id in (" + ListUtil.mkString(ids, ",") + ")";
+    final Map<Integer, User> users = new HashMap<Integer, User>();
+    Query.query(sql, null, new DataBaseCallback() {
+      @Override
+      public void queryCb(ResultSet rs) throws Exception {
+        super.queryCb(rs);
+        while(rs.next()) {
+          User user = new User(rs.getInt("id"), rs.getString("nickname"), rs.getString("email"), 
+            rs.getString("truename"), rs.getString("password"));
+          users.put(user.id, user);
+        }
+      }
+    });
+    return users;
   }
 }

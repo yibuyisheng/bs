@@ -44,6 +44,9 @@
           }
         </li>
       }
+      <li class="@if(request.path == "" || request.path.startsWith("/forum")){active}"><a href="/forum">鲜花论坛</a></li>
     </ul>
   </div>
 </nav>
+
+@views.html.common.dialog()
