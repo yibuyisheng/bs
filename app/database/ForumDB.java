@@ -132,7 +132,7 @@ public class ForumDB {
     List<Object> params = new ArrayList<Object>();
     params.add(Forum.KIND_POST);
 
-    Map<String, Long> count = new HashMap<String, Long>();
+    final Map<String, Long> count = new HashMap<String, Long>();
     count.put("ct", 0L);
     Query.query(sql, params, new DataBaseCallback() {
         @Override
@@ -151,7 +151,7 @@ public class ForumDB {
     params.add(Forum.KIND_POST);
     params.add(Forum.STATE_SHOW);
 
-    Map<String, Long> count = new HashMap<String, Long>();
+    final Map<String, Long> count = new HashMap<String, Long>();
     count.put("ct", 0L);
     Query.query(sql, params, new DataBaseCallback() {
         @Override
