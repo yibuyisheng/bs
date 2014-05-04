@@ -2,6 +2,7 @@ $(function() {
   var editor;
   KindEditor.ready(function(K) {
     editor = K.create('textarea[name="detail"]', {
+      width: '100%',
       resizeType : 1,
       allowPreviewEmoticons : false,
       allowImageUpload : false,
