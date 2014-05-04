@@ -114,7 +114,7 @@ public class ForumDB {
     params.add(Forum.STATE_SHOW);
     params.add(fid);
 
-    Map<String, Long> count = new HashMap<String, Long>();
+    final Map<String, Long> count = new HashMap<String, Long>();
     count.put("ct", 0L);
     Query.query(sql, params, new DataBaseCallback() {
         @Override
