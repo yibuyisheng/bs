@@ -1,12 +1,22 @@
 @(request: play.mvc.Http.Request)
 <nav class="navbar navbar-red m0" role="navigation">
-    <div class="container">
-        <ul class="nav navbar-nav">
-            <li class="dropdown@if(request.path() == "/manage"){ active}">
-                <a href="javascript:;">
-                    添加花
-                </a>
-            </li>
-        </ul>
-    </div>
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li class="dropdown@if(request.path() == "/manage/flower/add"){ active}">
+        <a href="/manage/flower/add">
+          添加花
+        </a>
+      </li>
+      <li class="dropdown@if(request.path() == "/manage/flowers"){ active}">
+        <a href="/manage/flowers">
+          所有的花
+        </a>
+      </li>
+      <li class="dropdown@if(request.path() == "/manage/posts"){ active}">
+        <a href="/manage/posts">
+          所有的帖子
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>

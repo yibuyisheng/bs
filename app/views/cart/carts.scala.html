@@ -3,38 +3,47 @@
 @main("我的购物车") {
 @views.html.common.header(parentList, menuClassify, self, request)
 
-<div class="container show-grid">
-    <div class="row">
-        <div class="col-md-1">编号</div>
-        <div class="col-md-5">商品名称</div>
-        <div class="col-md-2">价格</div>
-        <div class="col-md-2">数量</div>
-        <div class="col-md-2">操作</div>
+<div class="container mt10">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">我的购物车</h3>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>商品名称</th>
+            <th>价格</th>
+            <th>数量</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+            @carts.map{ c =>
+                @flowers.filter(f => f.id == c.flowerId).headOption.map{f =>
+                    <tr>
+                        <td>@c.id</td>
+                        <td>@f.title</td>
+                        <td>@f.price</td>
+                        <td>@c.count</td>
+                        <td>
+                            <a href="javascript:;" data-cid="@c.id" class="del">删除</a>
+                        </td>
+                    </tr>
+                }
+            }
+            @if(carts.size() == 0){
+                <tr><td align="center" colspan="5">暂无商品</td></tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr><td colspan="4"></td><td align="right">
+                <button type="button" class="btn btn-primary btn-block" id="go-cash" onclick="window.location.href='/cash'">去付款</button>
+            </td></tr>
+        </tfoot>
+      </table>
     </div>
-    @carts.map{ c =>
-        @flowers.filter(f => f.id == c.flowerId).headOption.map{f =>
-            <div class="row">
-                <div class="col-md-1">@c.id</div>
-                <div class="col-md-5">@f.title</div>
-                <div class="col-md-2">@f.price</div>
-                <div class="col-md-2">@c.count</div>
-                <div class="col-md-2">
-                    <a href="javascript:;" data-cid="@c.id" class="del">删除</a>
-                </div>
-            </div>
-        }
-    }
-    @if(carts.size() == 0){
-        <div class="text-center">暂无商品</div>
-    }
-    <div class="row">
-        <div class="col-md-11">
-        </div>
-        <div class="col-md-1">
-            <button type="button" class="btn btn-primary btn-block" id="go-cash">去付款</button>
-        </div>
-    </div>
-</div>
+  </div>
 
 @views.html.common.footer()
 } {

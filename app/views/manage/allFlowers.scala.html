@@ -1,0 +1,73 @@
+@(flowers: List[Flower], page: Int, pageSize: Int, totalPage: Int, request: play.mvc.Http.Request)
+<!DOCTYPE html>
+<html>
+<head>
+  <title>所有的花</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="@routes.Assets.at("lib/bootstrap/dist/css/bootstrap.min.css")">
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  @views.html.manage.common.header(request)
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>编号</th>
+          <th>标题</th>
+          <th>概述</th>
+          <th>价格</th>
+          <th>图片</th>
+          <th>详细描述</th>
+          <th>分类</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(flower <- flowers){
+          <tr>
+            <td>@flower.id</td>
+            <td>@flower.title</td>
+            <td>@flower.abs</td>
+            <td>@flower.price</td>
+            <td>@flower.image</td>
+            <td>@flower.detail</td>
+            <td>@flower.classify</td>
+            <td>
+              <a href="/manage/flower/modify/@flower.id" target="_blank">修改</a>
+              <a href="javascript:;" class="delete-flower" data-id="@flower.id">删除</a>
+            </td>
+          </tr>
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8" align="right">
+            @views.html.common.page("/manage/flowers", page, pageSize, totalPage)
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  @views.html.common.dialog();
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="@routes.Assets.at("lib/jquery/dist/jquery.min.js")"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="@routes.Assets.at("lib/bootstrap/dist/js/bootstrap.min.js")"></script>
+
+  <script src="@routes.Assets.at("lib/kind-editor/kindeditor-all.js")"></script>
+  <script src="@routes.Assets.at("javascripts/modules/manage/flowers.js")"></script>
+
+</body>
+</html>

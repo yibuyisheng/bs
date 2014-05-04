@@ -3,10 +3,10 @@
 @main("付款") {
 @views.html.common.header(parentList, menuClassify, self, request, None)
 
-<div class="row">
-    <div class="col-md-12 right-box show-grid">
-        <h5>填写订购人信息</h5>
-        <form class="container form-horizontal mt10" role="form">
+<div class="container mt10">
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">填写订购人信息</h3></div>
+        <form class="form-horizontal panel-body mt10" role="form">
             <div class="form-group">
                 <label class="col-sm-2 control-label">订购人姓名：</label>
                 <div class="col-sm-10">
@@ -41,9 +41,10 @@
             </div>
         </form>
     </div>
-    <div class="col-md-12 right-box show-grid">
-        <h5>请填写收货人信息</h5>
-        <form class="container form-horizontal mt10" role="form">
+
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">请填写收货人信息</h3></div>
+        <form class="form-horizontal panel-body mt10" role="form">
             <div class="form-group">
                 <label class="col-sm-2 control-label">收货人姓名：</label>
                 <div class="col-sm-10">
@@ -78,9 +79,10 @@
             </div>
         </form>
     </div>
-    <div class="col-md-12 right-box show-grid">
-        <h5>配送费用</h5>
-        <form class="container form-horizontal mt10" role="form">
+
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">配送费用</h3></div>
+        <form class="form-horizontal panel-body mt10" role="form">
             <div class="form-group">
                 <label class="col-sm-2">
                     <input type="radio" name="send-area" value="1">
@@ -97,9 +99,10 @@
             </div>
         </form>
     </div>
-    <div class="col-md-12 right-box show-grid">
-        <h5>配送日期</h5>
-        <form class="container form-horizontal mt10" role="form">
+
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">配送日期</h3></div>
+        <form class="form-horizontal panel-body mt10" role="form">
             <div class="form-group">
                 <label class="col-sm-2 control-label">送货日期：</label>
                 <div class="col-sm-2">
@@ -131,9 +134,10 @@
             </div>
         </form>
     </div>
-    <div class="col-md-12 right-box show-grid">
-        <h5>特殊要求</h5>
-        <form class="container form-horizontal mt10" role="form">
+
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">特殊要求</h3></div>
+        <form class="form-horizontal panel-body mt10" role="form">
             <div class="form-group">
                 <label class="col-sm-2 control-label">
                     如果您对配送服务有特殊要求,请在此说明,我们尽量满足：
@@ -144,9 +148,10 @@
             </div>
         </form>
     </div>
-    <div class="col-md-12 right-box show-grid">
-        <h5>卡片资料（随货赠送精美留言卡一张，请写下您的留言）</h5>
-        <form class="container form-horizontal mt10" role="form">
+
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">卡片资料（随货赠送精美留言卡一张，请写下您的留言）</h3></div>
+        <form class="form-horizontal panel-body mt10" role="form">
             <div class="form-group">
                 <label class="col-sm-2 control-label">
                     给收货人留言
@@ -167,12 +172,12 @@
             </div>
         </form>
     </div>
-    <div class="col-md-12 right-box show-grid">
-        <h5>付款方式</h5>
-        <div>建设中，敬请期待！</div>
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">付款方式</h3></div>
+        <div class="panel-body">建设中，敬请期待！</div>
     </div>
 </div>
-<div class="row text-right">
+<div class="container text-right">
     <button type="button" class="btn btn-primary btn-block" id="submit">提交</button>
 </div>
 

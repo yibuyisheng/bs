@@ -80,6 +80,14 @@ public class ForumDB {
     return forums;
   }
 
+  public static List<Forum> getAll(int start, int offset) throws Exception {
+    String sql = "select * from forum where kind=? order by refreshTime desc limit " + start + "," + offset;
+    List<Object> params = new ArrayList<Object>();
+    params.add(Forum.KIND_POST);
+
+    return _forums(sql, params);
+  }
+
   public static List<Forum> getLatest(int start, int offset) throws Exception {
     String sql = "select * from forum where kind=? and state=? order by refreshTime desc limit " + start + "," + offset;
     List<Object> params = new ArrayList<Object>();
@@ -118,6 +126,24 @@ public class ForumDB {
     );
     return count.get("ct");
   }
+
+  public static long getAllCount() throws Exception {
+    String sql = "select count(id) ct from forum where kind=?";
+    List<Object> params = new ArrayList<Object>();
+    params.add(Forum.KIND_POST);
+
+    Map<String, Long> count = new HashMap<String, Long>();
+    count.put("ct", 0L);
+    Query.query(sql, params, new DataBaseCallback() {
+        @Override
+        public void queryCb(ResultSet rs) throws Exception {
+          rs.next();
+          count.put("ct", rs.getLong("ct"));
+        }
+      }
+    );
+    return count.get("ct");
+  } 
 
   public static long getPostCount() throws Exception {
     String sql = "select count(id) ct from forum where kind=? and state=?";
@@ -176,5 +202,19 @@ public class ForumDB {
       if (users.containsKey(f.providerId)) f.provider = users.get(f.providerId);
     }
     return forums;
+  }
+
+  public static void showPost(int id) throws Exception {
+    String sql = "update forum set state=" + Forum.STATE_SHOW + " where id=?";
+    List<Object> params = new ArrayList<Object>();
+    params.add(id);
+    Query.update(sql, params);
+  }
+
+  public static void hidePost(int id) throws Exception {
+    String sql = "update forum set state=" + Forum.STATE_HIDE + " where id=?";
+    List<Object> params = new ArrayList<Object>();
+    params.add(id);
+    Query.update(sql, params);
   }
 }

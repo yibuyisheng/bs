@@ -17,8 +17,16 @@ POST    /ajax/user/login            controllers.UserController.loginAjax()
 
 GET     /user/out                   controllers.UserController.out()
 
-GET     /manage                     controllers.ManageController.manage()
-GET     /flower/add                 controllers.ManageController.manage()
+GET     /manage/flower/add          controllers.ManageController.flowerAdd()
+GET     /manage/flowers             controllers.ManageController.flowers()
+GET     /manage/flower/modify/:fid  controllers.ManageController.modify(fid: Int)
+POST    /manage/flower/modify/:fid  controllers.ManageController.modifyFlower(fid: Int)
+GET     /manage/flower/del/:fid     controllers.ManageController.deleteFlower(fid: Int)
+GET     /manage/posts               controllers.ManageController.allPost()
+POST    /manage/post/show/:fid      controllers.ManageController.showPost(fid: Int)
+POST    /manage/post/hide/:fid      controllers.ManageController.hidePost(fid: Int)
+
+GET     /flower/add                 controllers.ManageController.flowerAdd()
 POST    /flower/add/ajax            controllers.ManageController.addFlowerAjax()
 
 GET     /classify/:cid              controllers.FlowerController.classify(cid: Int)

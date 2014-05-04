@@ -13,13 +13,13 @@ public class Flower {
   public Flower(String image) {
     this.image = image;
   }
-    public Flower(int id, String title, String abs, float price, String image, String detail, int classify) {
-        this.id = id;
-        this.title = title;
-        this.abs = abs;
-        this.price = price;
-        this.image = image;
-        this.detail = detail;
-        this.classify = classify;
-    }
+  public Flower(int id, String title, String abs, float price, String image, String detail, int classify) {
+    this.id = id;
+    this.title = title;
+    this.abs = abs;
+    this.price = price;
+    this.image = image;
+    this.detail = detail;
+    this.classify = classify;
+  }
 }
