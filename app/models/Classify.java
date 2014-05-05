@@ -9,11 +9,11 @@ public class Classify {
   public int parent;
   public int order;
 
-    public Classify() {}
-    public Classify(int id, String name, int parent, int order) {
-        this.id = id;
-        this.name = name;
-        this.parent = parent;
-        this.order = order;
-    }
+  public Classify() {}
+  public Classify(int id, String name, int parent, int order) {
+    this.id = id;
+    this.name = name;
+    this.parent = parent;
+    this.order = order;
+  }
 }
