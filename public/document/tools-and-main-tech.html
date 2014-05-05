@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>开发工具的选用及关键技术的简介</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/main.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    p {text-indent: 2em;margin:0;line-height: 1.5em;}
+    h1,h2,h3,h4,h5{font-weight:bold;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">开发工具的选用及关键技术的简介</h1>
+      <h3>Java简介</h3>
+      <h4>Java的由来</h4>
+      <p>当1995年SUN推出Java语言之后，全世界的目光都被这个神奇的语言所吸引。那么Java到底有何神奇之处呢？</p>
+      <p>Java语言其实最是诞生于1991年，起初被称为OAK语言，是SUN公司为一些消费性电子产品而设计的一个通用环境。他们最初的目的只是为了开发一种独立于平台的软件技术，而且在网络出现之前，OAK可以说是默默无闻，甚至差点夭折。但是，网络的出现改变了OAK的命运。</p>
+      <p>在Java出现以前。Internet上的信息内容都是一些乏味死板的HTML文档。这对于那些迷恋于WEB浏览的人们来说简直不可容忍。他们迫切希望能在WEB中看到一些交互式的内容，开发人员也极希望能够在WEB上创建一类无需考虑软硬件平台就可以执行的应用程序，当然这些程序还要有极大的安全保障。对于用户的这种要求，传统的编程语言显得无能为力。SUN的工程师敏锐地察觉到了这一点，从1994年起，他们开始将OAK技术应用于WEB上，并且开发出了HotJava的第一个版本。当SUN公司1995年正式以Java这个名字推出的时候，几乎所有的WEB开发人员都想到：噢，这正是我想要的。于是Java成了一颗耀眼的明星，丑小鸭一下了变成了白天鹅。</p>
+
+      <h4>Java定义</h4>
+      <p>Java是一种简单的，面象对象的，分布式的，解释的，键壮的安全的，结构的中立的，可移植的，性能很优异的多线程的，动态的语言。</p>
+      <p>Java的开发环境有不同的版本，如sun公司的Java Developers Kit， 简称 JDK。后来微软公司推出了支持Java规范的Microsoft Visual J++ Java开发环境，简称 VJ++。</p>
+
+      <h4>Java特点</h4>
+      <p>1、平台无关性</p>
+      <p>平台无关性是指Java能运行于不同的平台。Java引进虚拟机原理，并运行于虚拟机，实现不同平台的Java接口之间。使用Java编写的程序能在世界范围内共享。Java的数据类型与机器无关，Java虚拟机（Java Virtual Machine）是建立在硬件和操作系统之上，实现Java二进制代码的解释执行功能，提供于不同平台的接口的。</p>
+      <p>2、安全性</p>
+      <p>Java的编程类似C++，学习过C++的读者将很快掌握Java的精髓。Java舍弃了C++的指针对存储器地址的直接操作，程序运行时，内存由操作系统分配，这样可以避免病毒通过指针侵入系统。Java对程序提供了安全管理器，防止程序的非法访问。</p>
+      <p>3、面向对象</p>
+      <p>Java 吸取了C++面向对象的概念，将数据封装于类中,利用类的优点，实现了程序的简洁性和便于维护性。类的封装性、继承性等有关对象的特性，使程序代码只需一次编译，然后通过上述特性反复利用。程序员只需把主要精力用在类和接口的设计和应用上。Java 提供了众多的一般对象的类，通过继承即可使用父类的方法。在 Java 中，类的继承关系是单一的非多重的，一个子类 只有一个父类，子类的父类又有一个父类。Java 提供的Object类及其子类的继承关系如同一棵倒立的树形，根类为Object类，Object类功能强大，经常会使用到它及其它派生的子类。</p>
+      <p>4、分布式</p>
+      <p>Java建立在扩展TCP/IP网络平台上。库函数提供了用HTTP和FTP协议传送和接受信息的方法。这使得程序员使用网络上的文件和使用本机文件一样容易。</p>
+      <p>5、健壮性</p>
+      <p>Java致力于检查程序在编译和运行时的错误。类型检查帮助检查出许多开发早期出现的错误。Java自已操纵内存减少了内存出错的可能性。Java还实现了真数组，避免了覆盖数据的可能。这些功能特征大大提高了开发Java应用程序的周期。Java提供：Null指针检测、数组边界检测、异常出口、Byte code校验。</p>
+
+      <h3>Tomcat简介</h3>
+      <p>Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现，Tomcat 5 支持最新的Servlet 2.4 和JSP 2.0 规范。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p>
+      <p>Tomcat 很受广大程序员的喜欢，因为它运行时占用的系统资源小，扩展性好，支持负载平衡与邮件服务等开发应用系统常用的功能；而且它还在不断的改进和完善中，任何一个感兴趣的程序员都可以更改它或在其中加入新的功能。</p>
+      <p>Tomcat 是一个小型的轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应对HTML 页面的访问请求。实际上Tomcat 部分是Apache 服务器的扩展，但它是独立运行的，所以当你运行tomcat 时，它实际上作为一个与Apache 独立的进程单独运行的。 </p>
+      <p>这里的诀窍是，当配置正确时，Apache 为HTML页面服务，而Tomcat 实际上运行JSP 页面和Servlet。另外，Tomcat和IIS、Apache等Web服务器一样，具有处理HTML页面的功能，另外它还是一个Servlet和JSP容器，独立的Servlet容器是Tomcat的默认模式。不过，Tomcat处理静态HTML的能力不如Apache服务器。</p>
+
+      <h3>MySQL简介</h3>
+      <h4>1、MySQL的概述</h4>
+      <p>MySQL是一个小型关系型数据库管理系统，开发者为瑞典MySQL AB公司。在2008年1月16号被Sun公司收购。而2009年,SUN又被Oracle收购.对于Mysql的前途,没有任何人抱乐观的态度.目前MySQL被广泛地应用在Internet上的中小型网站中。由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，许多中小型网站为了降低网站总体拥有成本而选择了MySQL作为网站数据库。</p>
+      <h4>2、MySQL的特性</h4>
+      <p>1) 使用C和C++编写，并使用了多种编译器进行测试，保证源代码的可移植性；</p>
+      <p>2) 支持AIX、FreeBSD、HP-UX、Linux、Mac OS、Novell Netware、OpenBSD、OS/2 Wrap、Solaris、Windows等多种操作系统；</p>
+      <p>3) 为多种编程语言提供了API。这些编程语言包括C、C++、Python、Java、Perl、PHP、Eiffel、Ruby和Tcl等；</p>
+      <p>4) 支持多线程，充分利用CPU资源；</p>
+      <p>5) 优化的SQL查询算法，有效地提高查询速度；</p>
+      <p>6) 既能够作为一个单独的应用程序应用在客户端服务器网络环境中，也能够作为一个库而嵌入到其他的软件中提供多语言支持，常见的编码如中文的GB 2312、BIG5，日文的Shift_JIS等都可以用作数据表名和数据列名；</p>
+      <p>7) 提供TCP/IP、ODBC和JDBC等多种数据库连接途径；</p>
+      <p>8) 提供用于管理、检查、优化数据库操作的管理工具；</p>
+      <p>9) 可以处理拥有上千万条记录的大型数据库；</p>
+      <h4>3、MySQL的应用</h4>
+      <p>与其他的大型数据库例如Oracle、DB2、SQL Server等相比，MySQL自有它的不足之处，如规模小、功能有限（MySQL Cluster的功能和效率都相对比较差）等，但是这丝毫也没有减少它受欢迎的程度。对于一般的个人使用者和中小型企业来说，MySQL提供的功能已经绰绰有余，而且由于MySQL是开放源码软件，因此可以大大降低总体拥有成本。 目前Internet上流行的网站构架方式是LAMP（Linux+Apache+MySQL+PHP），即使用Linux作为操作系统，Apache作为Web服务器，MySQL作为数据库，PHP作为服务器端脚本解释器。由于这四个软件都是自由或开放源码软件（FLOSS)，因此使用这种方式不用花一分钱就可以建立起一个稳定、免费的网站系统。</p>
+      <h4>4、MySQL管理</h4>
+      <p>可以使用命令行工具管理MySQL数据库（命令mysql 和 mysqladmin)，也可以从MySQL的网站下载图形管理工具MySQL Administrator和MySQL Query Browser。</p>
+      <p>phpMyAdmin是由php写成的MySQL资料库系统管理程式，让管理者可用Web界面管理MySQL资料库。</p>
+      <p>phpMyBackupPro也是由PHP写成的，可以透过Web介面创建和管理数据库。它可以创建伪cronjobs，可以用来自动在某个时间或周期备份MySQL 数据库。</p>
+      <p>另外，还有其他的GUI管理工具，例如早先的mysql-front 以及 ems mysql manager,navicat 等等。</p>
+
+      <h3>Sublime Text 3简介</h3>
+      <p>Sublime Text 3 支持多种编程语言的语法高亮、拥有优秀的代码自动完成功能，还拥有代码片段（Snippet）的功能，可以将常用的代码片段保存起来，在需要时随时调用。支持 VIM 模式，可以使用Vim模式下的多数命令。支持宏，简单地说就是把操作录制下来或者自己编写命令，然后播放刚才录制的操作或者命令。</p>
+      <p>Sublime Text 3还具有良好的扩展能力和完全开放的用户自定义配置与神奇实用的编辑状态恢复功能。支持强大的多行选择和多行编辑。强大的快捷命令“可以实时搜索到相应的命令、选项、snippet 和 syntex， 按下回车就可以直接执行，减少了查找的麻烦。即时的文件切换。随心所欲的跳转到任意文件的任意位置。多重选择功能允许在页面中同时存在多个光标。</p>
+      <p>该编辑器在界面上比较有特色的是支持多种布局和代码缩略图，右侧的文件略缩图滑动条，方便地观察当前窗口在文件的那个位置。也提供了 F11和Shift+F11进入全屏免打扰模式。代码缩略图、多标签页和多种布局设置，在大屏幕或需同时编辑多文件时尤为方便 全屏免打扰模式，更加专心于编辑。代码缩略图的功能在更早的编辑器TextMate中就已经存在，TextMate已经开源。Sublime Text 3支持文件夹浏览，可以打开文件夹，在左侧会有导航栏，方便在同时处理多个文件。多个位置同时编辑，按住ctrl，用鼠标选择多个位置，可以同时在对应位置进行相同操作。</p>
+      <p>Sublime Text 3还有编辑状态恢复的能力，即当你修改了一个文件，但没有保存，这时退出软件，软件不询问用户是否要保存的，因为无论是用户自发退出还是意外崩溃退出，下次启动软件后，之前的编辑状态都会被完整恢复，就像退出前时一样。</p>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
