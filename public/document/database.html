@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>数据库</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/main.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    p {text-indent: 2em;margin:0;line-height: 1.5em;}
+    h1,h2,h3,h4,h5{font-weight:bold;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">数据库设计</h1>
+      <h3>数据库概念结构设计</h3>
+      <p>将需求分析得到的用户需求抽象为信息结构即概念模型的过程就是概念结构设计。它是整个数据库设计的关键。概念结构是各种数据模型的共同基础，它比数据模型更独立于机器、更抽象，从而更加稳定。</p>
+      <p>通过对系统数据库的需求分析得知应建立“用户表”、“用户信息表”、“私信表”、“论坛帖子表”、“反馈信息表”、“文档表”、“章节表”。</p>
+
+      <h3>数据库逻辑结构设计</h3>
+      <p>E—R图主要是将用户的需求进行抽象总结，把实体以及实体之间的联系抽象出来的过程。关系模型主要是其中的实体和实体间的联系均是由单一的结构类型即关系（表）来表示的。</p>
+      <p>E—R图向关系模型转换：</p>
+      <p>一个实体型转换为一个关系模式，实体的属性即为关系模式的属性，实体的标识符即为关系模式的键。</p>
+      <p>联系类型的转换，根据不同情况做不同的处理：</p>
+      <p>（1）若实体间的联系是一对一的，可以在两个实体类型转换成的两个关系模式中的任意一个关系模式的属性中加入另一个关系模式的键和联系类型的属性。也可能做合并关系模式处理。</p>
+      <p>（2）若实体间的联系是一对多的，则在多端实体类型转换成的关系模式中加入一端实体类型转换成的关系模式的键和联系类型的属性。</p>
+      <p>（3）若实体间的联系是一对多的，而且在多端实体类型为弱实体，转换成的关系模式中将一端实体类型(父实体)的键作为外键放入多端的弱实体(子实体)中。弱实体的主键由父实体的主键与弱实体本身的候选键组成。也可以为弱实体建立新的标识ID。</p>
+      <p>（4）若实体间的联系是多对多的，则将联系类型也转换成关系模式，其属性为与该联系相连的各个实体的码以及联系的属性，而键是与该联系相连的各个实体的码的组合，或者是与该联系相连的各个实体的码和联系的附加属性的组合。</p>
+      <p>根据以上转换规则可得本系统的关系模型为：</p>
+      <p>由花信息实体导出花关系模式：花信息（花编号、花的标题、花的概述、花的价格、花的图片、花的详细描述、花的分类），主码：花的编号。</p>
+      <p>由购物车信息实体导出购物车关系模式：购物车信息（购物车编号、购物车拥有者、购物车中的鲜花、鲜花数量），主码：购物车编号。</p>
+      <p>由鲜花分类信息实体导出鲜花分类关系模式：鲜花分类信息（鲜花分类编号、分类名称、父类、排序），主码：鲜花分类编号。</p>
+      <p>由帖子信息实体导出帖子关系模式：帖子信息（帖子编号、发布时间、更新时间、帖子内容、帖子标题、帖子类型、发布者、回复目标、帖子状态、回复数、查看数）。</p>
+      <p>由订单信息实体导出订单关系模式：订单信息（订单编号、拥有者、所购鲜花、订购人姓名、订购人电话、订购人手机、订购人省份、订购人城市、订购人电子邮件、收货人姓名、收货人电话、收货人手机、收货人省份、收货人城市、收货人详细地址、送货区域、送货日期、送货时段、特殊要求、留言、留名）。</p>
+      <p>由用户信息实体导出用户关系模式：用户信息（用户编号、用户昵称、用户电子邮箱地址、真实姓名、登录密码）。</p>
+
+
+      <h3>数据库物理结构设计</h3>
+      <p>数据库在物理设备上的存储结构与存取方法就是数据库的物理结构，为一个给定的逻辑数据模型选取一个最适合应用要求的物理结构的过程，就是数据库的物理设计，该物理结构设计基本达到了优化的物理数据库机构，使得在数据库上运行的各种事务响应时间小，存储空间利用率高、事务吞吐量大。本设计的数据库开发平台为MongoDB。经过分析设计给出了各主要表的物理结构：</p>
+      <p>1、“用户”表：用于保存数据库中的用户信息，表结构如表1所示。</p>
+      <div>
+        <h5 class="text-center">表1 用户表</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>字段名</th>
+              <th>字段类型</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>int(11)</td>
+              <td>主键</td>
+            </tr>
+            <tr>
+              <td>nickname</td>
+              <td>varchar(20)</td>
+              <td>昵称</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>varchar(20)</td>
+              <td>电子邮箱地址</td>
+            </tr>
+            <tr>
+              <td>truename</td>
+              <td>varchar(20)</td>
+              <td>真实姓名</td>
+            </tr>
+            <tr>
+              <td>password</td>
+              <td>varchar(20)</td>
+              <td>登录密码</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <h5>说明：</h5>
+        <p>a）、用户身份有学生（identity=1）、教师（identity=2）、其他（identity=3）和超级管理员（identity=4）；</p>
+        <p>b）、用户状态有等待审核（status=1）、审核通过（status=2）、审核未通过（status=3）、账号可用（status=4）、账号已被删除（status=5）；</p>
+        <p>c）、用户权限有管理用户权限（permission=0b000001）、管理论坛权限（permission=0b000010）、管理文档权限（permission=0b000100）、管理反馈权限（permission=0b001000）、管理章节权限（permission=0b010000）、论坛发言权限（permission=0b100000）。</p> -->
+      </div>
+      <p>2、“购物车”表：用于保存用户的购物信息，表结构如表2所示。</p>
+      <div>
+        <h5 class="text-center">表2 购物车表</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>字段名</th>
+              <th>字段类型</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>int(11)</td>
+              <td>主键</td>
+            </tr>
+            <tr>
+              <td>userId</td>
+              <td>int(11)</td>
+              <td>购物车的拥有者编号</td>
+            </tr>
+            <tr>
+              <td>flowerId</td>
+              <td>int(11)</td>
+              <td>购买的鲜花编号</td>
+            </tr>
+            <tr>
+              <td>count</td>
+              <td>int</td>
+              <td>购买的鲜花数量</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <h5>说明：</h5>
+        <p>a）、用户身份有学生（identity=1）、教师（identity=2）、其他（identity=3）和超级管理员（identity=4）；</p>
+        <p>b）、用户状态有等待审核（status=1）、审核通过（status=2）、审核未通过（status=3）、账号可用（status=4）、账号已被删除（status=5）；</p>
+        <p>c）、用户权限有管理用户权限（permission=0b000001）、管理论坛权限（permission=0b000010）、管理文档权限（permission=0b000100）、管理反馈权限（permission=0b001000）、管理章节权限（permission=0b010000）、论坛发言权限（permission=0b100000）。</p> -->
+      </div>
+      <p>3、“分类”表：用于保存鲜花的分类信息，表结构如表3所示。</p>
+      <div>
+        <h5 class="text-center">表3 分类表</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>字段名</th>
+              <th>字段类型</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>int(11)</td>
+              <td>主键</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>varchar(50)</td>
+              <td>分类名称</td>
+            </tr>
+            <tr>
+              <td>parent</td>
+              <td>int(11)</td>
+              <td>父类编号</td>
+            </tr>
+            <tr>
+              <td>order</td>
+              <td>int(11)</td>
+              <td>排序</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <h5>说明：</h5>
+        <p>a）、用户身份有学生（identity=1）、教师（identity=2）、其他（identity=3）和超级管理员（identity=4）；</p>
+        <p>b）、用户状态有等待审核（status=1）、审核通过（status=2）、审核未通过（status=3）、账号可用（status=4）、账号已被删除（status=5）；</p>
+        <p>c）、用户权限有管理用户权限（permission=0b000001）、管理论坛权限（permission=0b000010）、管理文档权限（permission=0b000100）、管理反馈权限（permission=0b001000）、管理章节权限（permission=0b010000）、论坛发言权限（permission=0b100000）。</p> -->
+      </div>
+      <p>4、“鲜花”表：用于保存鲜花信息，表结构如表4所示。</p>
+      <div>
+        <h5 class="text-center">表4 鲜花表</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>字段名</th>
+              <th>字段类型</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>int(11)</td>
+              <td>主键</td>
+            </tr>
+            <tr>
+              <td>title</td>
+              <td>varchar(200)</td>
+              <td>鲜花标题</td>
+            </tr>
+            <tr>
+              <td>abstract</td>
+              <td>text</td>
+              <td>鲜花概述</td>
+            </tr>
+            <tr>
+              <td>price</td>
+              <td>decimal(10,0)</td>
+              <td>鲜花价格</td>
+            </tr>
+            <tr>
+              <td>detail</td>
+              <td>text</td>
+              <td>鲜花详细描述</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>5、“帖子”表，用于保存论坛帖子信息，表结构如表5所示。</p>
+      <div>
+        <h5 class="text-center">表5 帖子表</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>字段名</th>
+              <th>字段类型</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>int(11)</td>
+              <td>主键</td>
+            </tr>
+            <tr>
+              <td>createTime</td>
+              <td>datetime</td>
+              <td>创建时间</td>
+            </tr>
+            <tr>
+              <td>refreshTime</td>
+              <td>datetime</td>
+              <td>更新时间</td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td>text</td>
+              <td>内容</td>
+            </tr>
+            <tr>
+              <td>title</td>
+              <td>varchar(500)</td>
+              <td>标题</td>
+            </tr>
+            <tr>
+              <td>kind</td>
+              <td>int</td>
+              <td>帖子类型</td>
+            </tr>
+            <tr>
+              <td>state</td>
+              <td>int</td>
+              <td>帖子状态</td>
+            </tr>
+            <tr>
+              <td>replyNo</td>
+              <td>int</td>
+              <td>回复数</td>
+            </tr>
+            <tr>
+              <td>viewNo</td>
+              <td>int</td>
+              <td>查看数</td>
+            </tr>
+            <tr>
+              <td>providerId</td>
+              <td>int(11)</td>
+              <td>发布者</td>
+            </tr>
+            <tr>
+              <td>targetId</td>
+              <td>int(11)</td>
+              <td>回复目标</td>
+            </tr>
+          </tbody>
+        </table>
+        <h5>说明：</h5>
+        <p>a）帖子类型可以是楼主帖子（kind=1）、回复帖子（kind=2）；</p>
+        <p>b）帖子状态可以是可显示状态（state=1）、隐藏状态（state=2）、被删除状态（state=3）、审核中状态（state=4）。</p>
+      </div>
+      <p>6、“订单”表，用于保存订单信息，表结构如表6所示。</p>
+      <div>
+        <h5 class="text-center">表6 订单表</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>字段名</th>
+              <th>字段类型</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>int(11)</td>
+              <td>主键</td>
+            </tr>
+            <tr>
+              <td>userId</td>
+              <td>int(11)</td>
+              <td>拥有者</td>
+            </tr>
+            <tr>
+              <td>flowerIds</td>
+              <td>varchar(500)</td>
+              <td>所购鲜花的编号</td>
+            </tr>
+            <tr>
+              <td>ordererName</td>
+              <td>varchar(40)</td>
+              <td>订购者名字</td>
+            </tr>
+            <tr>
+              <td>ordererPhone</td>
+              <td>varchar(40)</td>
+              <td>订购者电话</td>
+            </tr>
+            <tr>
+              <td>ordererMobile</td>
+              <td>varchar(40)</td>
+              <td>订购者手机</td>
+            </tr>
+            <tr>
+              <td>ordererProvince</td>
+              <td>varchar(40)</td>
+              <td>订购者省份</td>
+            </tr>
+            <tr>
+              <td>ordererCity</td>
+              <td>varchar(40)</td>
+              <td>订购者城市</td>
+            </tr>
+            <tr>
+              <td>ordererEmail</td>
+              <td>varchar(40)</td>
+              <td>订购者电子邮箱地址</td>
+            </tr>
+            <tr>
+              <td>consigneeName</td>
+              <td>varchar(40)</td>
+              <td>收货人姓名</td>
+            </tr>
+            <tr>
+              <td>consigneePhone</td>
+              <td>varchar(40)</td>
+              <td>收货人电话</td>
+            </tr>
+            <tr>
+              <td>consigneeMobile</td>
+              <td>varchar(40)</td>
+              <td>收货人手机</td>
+            </tr>
+            <tr>
+              <td>ordererProvince</td>
+              <td>varchar(40)</td>
+              <td>收货人省份</td>
+            </tr>
+            <tr>
+              <td>ordererCity</td>
+              <td>varchar(40)</td>
+              <td>收货人城市</td>
+            </tr>
+            <tr>
+              <td>ordererAddress</td>
+              <td>varchar(40)</td>
+              <td>收货人详细地址</td>
+            </tr>
+            <tr>
+              <td>sendArea</td>
+              <td>int</td>
+              <td>送货区域</td>
+            </tr>
+            <tr>
+              <td>sendDate</td>
+              <td>datetime</td>
+              <td>送货日期</td>
+            </tr>
+            <tr>
+              <td>sendTime</td>
+              <td>int</td>
+              <td>送货时段</td>
+            </tr>
+            <tr>
+              <td>specialNeeds</td>
+              <td>text</td>
+              <td>特殊要求</td>
+            </tr>
+            <tr>
+              <td>leaveMessage</td>
+              <td>varchar(500)</td>
+              <td>留言</td>
+            </tr>
+            <tr>
+              <td>leaveNameMyName</td>
+              <td>varchar(40)</td>
+              <td>留名</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
