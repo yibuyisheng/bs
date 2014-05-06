@@ -52,14 +52,14 @@ ul {
 }
 
 .navbar-red {
-  background: #F7422A;
+  background: #fdc6d9;
   border: 0;
-  border-bottom: 1px solid #D0130D;
+  border-bottom: 1px solid #fdc6d9;
 }
 .navbar-red a {
   color: white;
   font-weight: bold;
 }
 .navbar-red ul.nav li.active>a, .navbar-red ul.nav li>a:hover, .navbar-red ul.nav li>a:focus, .navbar-red .nav .open>a {
-  background: #c10000;
+  background: #f699b4;
 }
