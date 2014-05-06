@@ -2,8 +2,9 @@
 
 @main("欢迎来到我们的鲜花销售网站") {
   @views.html.common.header(parentList, menuClassify, self, request)
-  <div>
-    <img src="@routes.Assets.at("images/index-top-bg.jpg")" width="100%">
+  <div class="img-scroll">
+    <img src="@routes.Assets.at("images/index-top-bg0.jpg")" width="100%" class="hide">
+    <img src="@routes.Assets.at("images/index-top-bg1.jpg")" width="100%" class="hide">
   </div>
   
   <div class="container mt10">
@@ -59,5 +60,5 @@
   </div>
   @views.html.common.footer()
 } {
-  
+  <script tyoe="text/javascript" src="@routes.Assets.at("javascripts/modules/index.js")"></script>
 }

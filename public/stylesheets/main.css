@@ -63,3 +63,8 @@ ul {
 .navbar-red ul.nav li.active>a, .navbar-red ul.nav li>a:hover, .navbar-red ul.nav li>a:focus, .navbar-red .nav .open>a {
   background: #f699b4;
 }
+
+.img-scroll {
+  height: 388px;
+  overflow: hidden;
+}
