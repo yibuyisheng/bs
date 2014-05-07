@@ -44,7 +44,7 @@ public class UserDB {
 
     final User user = new User();
     user.id = 0;
-    Query.query("select * from User where nickname=? or email=? limit 0,1", params, new DataBaseCallback() {
+    Query.query("select * from user where nickname=? or email=? limit 0,1", params, new DataBaseCallback() {
       @Override
       public void queryCb(ResultSet rs) throws Exception {
         super.queryCb(rs);
@@ -63,7 +63,7 @@ public class UserDB {
   public static Map<Integer, User> getByIds(List<Integer> ids) throws Exception {
     if (ids.size() == 0) return new HashMap<Integer, User>();
 
-    String sql = "select * from User where id in (" + ListUtil.mkString(ids, ",") + ")";
+    String sql = "select * from user where id in (" + ListUtil.mkString(ids, ",") + ")";
     final Map<Integer, User> users = new HashMap<Integer, User>();
     Query.query(sql, null, new DataBaseCallback() {
       @Override
