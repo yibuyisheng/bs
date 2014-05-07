@@ -44,9 +44,19 @@
           <div class="panel-body">
             <div class="row">
               @for((flower, index) <- recommandFlowers zipWithIndex){
-                <div class="col-md-4">
-                  <a href="javascript:;" class="flower" style="background-image:url(@routes.Assets.at(flower.image))"></a>
-                  <p class="text-center">描述描述</p>
+                <div class="col-sm-6 col-md-4">
+                  <div class="thumbnail">
+                    <div class="img" style="height:200px;overflow:hidden;">
+                      <img data-src="@flower.image" src="@flower.image" style="width:100%;">
+                    </div>
+                    <div class="caption">
+                      <h4>@flower.title</h4>
+                      <p>@flower.abs</p>
+                      <p class="text-right">
+                        <a href="/flower/@flower.id" class="btn btn-primary" role="button">查看详情</a>
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 @if((index + 1) % 3 == 0){
                   </div><div class="row">
