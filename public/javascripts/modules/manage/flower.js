@@ -16,7 +16,7 @@ $(function() {
   $('.image-preview').on('click', function() {
     var $dialog = $('.dialog').modal('show');
     $dialog.find('.modal-title').text('预览');
-    $dialog.find('.modal-body').html('<img src="' + $(this).data('src') + '">');
+    $dialog.find('.modal-body').html('<img src="' + $(this).data('src') + '" width="100%">');
   });
 
   var $form = $('form');
