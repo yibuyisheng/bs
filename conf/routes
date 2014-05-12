@@ -25,6 +25,8 @@ GET     /manage/flower/del/:fid     controllers.ManageController.deleteFlower(fi
 GET     /manage/posts               controllers.ManageController.allPost()
 POST    /manage/post/show/:fid      controllers.ManageController.showPost(fid: Int)
 POST    /manage/post/hide/:fid      controllers.ManageController.hidePost(fid: Int)
+GET     /manage/orders              controllers.ManageController.orders()
+GET     /manage/users               controllers.ManageController.users()
 
 GET     /flower/add                 controllers.ManageController.flowerAdd()
 POST    /flower/add/ajax            controllers.ManageController.addFlowerAjax()

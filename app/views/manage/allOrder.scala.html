@@ -1,4 +1,4 @@
-@(posts: List[Forum], page: Int, pageSize: Int, totalPage: Int, request: play.mvc.Http.Request)
+@(orders: List[Order], page: Int, pageSize: Int, totalPage: Int, request: play.mvc.Http.Request)
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,46 +22,37 @@
     <table class="table">
       <thead>
         <tr>
-          <th>标题</th>
-          <th>更新时间</th>
-          <th>创建时间</th>
-          <th>回复数</th>
-          <th>查看数</th>
+          <th>编号</th>
+          <th>送货日期</th>
+          <th>送货时段</th>
+          <th>购买者</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
-      @posts.map{ forum =>
+      @orders.map{ order =>
         <tr>
           <td>
-            <a href="/forum/detail/@forum.id" target="_blank">@forum.title</a>
+            @order.id
           </td>
           <td>
-            @forum.refreshTime
+            @order.sendDate
           </td>
           <td>
-            @forum.createTime
+            @order.sendTime
           </td>
           <td>
-            @forum.replyNo
+            @order.userId
           </td>
           <td>
-            @forum.viewNo
-          </td>
-          <td>
-            @if(forum.state == Forum.STATE_SHOW){
-              <a href="javascript:;" class="hide-post" data-id="@forum.id">隐藏</a>
-            }
-            @if(forum.state == Forum.STATE_HIDE || forum.state == Forum.STATE_EXAMING){
-              <a href="javascript:;" class="show-post" data-id="@forum.id">显示</a>
-            }
+            <a href="/manage/order/detail/@order.id" target="_blank">详细</a>
           </td>
         </tr>
       }
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="6" align="right">@views.html.common.page("/manage/posts", page, pageSize, totalPage)</td>
+          <td colspan="5" align="right">@views.html.common.page("/manage/orders", page, pageSize, totalPage)</td>
         </tr>
       </tfoot>
     </table>

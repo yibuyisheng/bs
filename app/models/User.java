@@ -13,6 +13,7 @@ public class User {
   public String email;
   public String truename;
   public String password;
+  // public int role;
 
   public User() {}
   public User(String nickname, String email, String truename, String password) {

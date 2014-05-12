@@ -20,6 +20,11 @@ import java.util.regex.Pattern;
 public class UserController extends Base {
 
   public static Result regist() throws Exception {
+    if (self().isDefined()) {
+      String url = request().getQueryString("url");
+      return redirect("/");
+    }
+    
     Map<String, Object> map = menuClassify();
     List<Classify> parentList = (List<Classify>)map.get("parents");
     Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
@@ -69,6 +74,11 @@ public class UserController extends Base {
   }
 
   public static Result login() throws Exception {
+    if (self().isDefined()) {
+      String url = request().getQueryString("url");
+      return redirect("/");
+    }
+
     Map<String, Object> map = menuClassify();
     List<Classify> parentList = (List<Classify>)map.get("parents");
     Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");

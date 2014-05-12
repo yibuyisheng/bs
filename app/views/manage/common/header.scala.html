@@ -2,6 +2,11 @@
 <nav class="navbar navbar-red m0" role="navigation">
   <div class="container">
     <ul class="nav navbar-nav">
+      <li>
+        <a href="/">
+          首页
+        </a>
+      </li>
       <li class="dropdown@if(request.path() == "/manage/flower/add"){ active}">
         <a href="/manage/flower/add">
           添加花
@@ -9,12 +14,22 @@
       </li>
       <li class="dropdown@if(request.path() == "/manage/flowers"){ active}">
         <a href="/manage/flowers">
-          所有的花
+          鲜花管理
         </a>
       </li>
       <li class="dropdown@if(request.path() == "/manage/posts"){ active}">
         <a href="/manage/posts">
-          所有的帖子
+          帖子管理
+        </a>
+      </li>
+      <li class="dropdown@if(request.path() == "/manage/orders"){ active}">
+        <a href="/manage/orders">
+          订单管理
+        </a>
+      </li>
+      <li class="dropdown@if(request.path() == "/manage/users"){ active}">
+        <a href="/manage/users">
+          用户管理
         </a>
       </li>
     </ul>

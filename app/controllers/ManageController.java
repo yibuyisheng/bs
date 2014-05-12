@@ -4,16 +4,29 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.*;
 import play.libs.Json;
 import play.mvc.Result;
+import play.api.mvc.Request;
+import play.api.mvc.Session;
 
 import java.util.List;
 import java.util.regex.Pattern;
 import database.*;
+import scala.Option;
 
 /**
  * Created by zhangli on 14-3-30.
  */
 public class ManageController extends Base {
+  private static boolean isAdmin() {
+    Option<User> self = self();
+    if (!self.isDefined() || self.get().id != 0) {
+      return false;
+    }
+    return true;
+  }
+
   public static Result flowerAdd() throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
     List<Classify> classifyList = ClassifyDB.getAll();
     return ok(views.html.manage.addFlower.render(classifyList, request()));
   }
@@ -46,6 +59,11 @@ public class ManageController extends Base {
     }
   }
   public static Result addFlowerAjax() throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
+
     String title = getString("title", "");
     String abs = getString("abstract", "");
     String price = getString("price", "");
@@ -69,6 +87,9 @@ public class ManageController extends Base {
   }
 
   public static Result flowers() throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
+
     String page = request().getQueryString("page");
     if (page == null || page == "") page = "1";
     int pageIndex = Integer.parseInt(page);
@@ -84,12 +105,19 @@ public class ManageController extends Base {
   }
 
   public static Result modify(int fid) throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
     Flower flower = FlowerDB.get(fid);
     List<Classify> classifyList = ClassifyDB.getAll();
     return ok(views.html.manage.modifyFlower.render(flower, classifyList, request()));
   }
 
   public static Result modifyFlower(int fid) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
+
     String title = getString("title", "");
     String abs = getString("abstract", "");
     String price = getString("price", "");
@@ -115,6 +143,8 @@ public class ManageController extends Base {
   }
 
   public static Result allPost() throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
     String page = request().getQueryString("page");
     if (page == null || page == "") page = "1";
 
@@ -131,6 +161,10 @@ public class ManageController extends Base {
   }
 
   public static Result showPost(int id) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
     ForumDB.showPost(id);
 
     ObjectNode result = Json.newObject();
@@ -138,6 +172,10 @@ public class ManageController extends Base {
   }
 
   public static Result hidePost(int id) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
     ForumDB.hidePost(id);
 
     ObjectNode result = Json.newObject();
@@ -145,9 +183,51 @@ public class ManageController extends Base {
   }
 
   public static Result deleteFlower(int id) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
     FlowerDB.delete(id);
 
     ObjectNode result = Json.newObject();
     return ok(result.put("status", 1));
+  }
+
+  // 订单管理
+  public static Result orders() throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
+    String page = request().getQueryString("page");
+    if (page == null || page == "") page = "1";
+
+    int pageIndex = Integer.parseInt(page);
+    if (pageIndex < 1) pageIndex = 1;
+    int pageSize = 10;
+
+    long total = OrderDB.total();
+    int totalPage = (int)(total % pageSize > 0 ? (total / pageSize + 1) : total / pageSize);
+
+    List<Order> orders = OrderDB.all((pageIndex - 1) * pageSize, pageSize);
+
+    return ok(views.html.manage.allOrder.render(orders, pageIndex, pageSize, totalPage, request()));
+  }
+
+  // 用户管理
+  public static Result users() throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
+    String page = request().getQueryString("page");
+    if (page == null || page == "") page = "1";
+
+    int pageIndex = Integer.parseInt(page);
+    if (pageIndex < 1) pageIndex = 1;
+    int pageSize = 10;
+
+    long total = OrderDB.total();
+    int totalPage = (int)(total % pageSize > 0 ? (total / pageSize + 1) : total / pageSize);
+
+    List<User> users = UserDB.all((pageIndex - 1) * pageSize, pageSize);
+
+    return ok(views.html.manage.allUser.render(users, pageIndex, pageSize, totalPage, request()));
   }
 }
