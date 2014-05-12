@@ -1,0 +1,11 @@
+@(order: Order, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+
+@main("订单详情") {
+@views.html.common.header(parentList, menuClassify, self, request, None)
+
+@views.html.common.orderDetail(order)
+
+@views.html.common.footer()
+} {
+<script src="@routes.Assets.at("javascripts/modules/cash.js")"></script>
+}

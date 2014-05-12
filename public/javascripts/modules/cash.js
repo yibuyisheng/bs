@@ -35,11 +35,20 @@ $(function() {
 
     return true;
   };
+  var getData = function() {
+    var dataStr = [];
+    $('form').each(function() {
+      dataStr.push($(this).serialize());
+    });
+    dataStr = dataStr.join('&').replace(/send-date=[0-9|\-]+/, 'send-date=' + new Date($sendDate.val()).getTime());
+    return dataStr;
+  };
   $('#submit').on('click', function() {
     if (!validate()) return;
     $.ajax({
       type: 'post',
-      url: '/order/create'
+      url: '/order/create',
+      data: getData()
     }).done(function(data) {
       if (data.status !== 1) {
         return $('.error').modal('show').find('.modal-body').html(data.msg ? data.msg : '未知错误！');

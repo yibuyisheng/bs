@@ -7,7 +7,7 @@ import play.mvc.Result;
 import play.api.mvc.Request;
 import play.api.mvc.Session;
 
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 import database.*;
 import scala.Option;
@@ -208,8 +208,35 @@ public class ManageController extends Base {
     int totalPage = (int)(total % pageSize > 0 ? (total / pageSize + 1) : total / pageSize);
 
     List<Order> orders = OrderDB.all((pageIndex - 1) * pageSize, pageSize);
+    List<Integer> userIds = new LinkedList<Integer>();
+    for (Order order : orders) userIds.add(order.userId);
+    Map<Integer, User> userIdUserMap = UserDB.getByIds(userIds);
+    for (Order order : orders) {
+      if (userIdUserMap.containsKey(order.userId)) {
+        order.user = userIdUserMap.get(order.userId);
+      }
+    }
 
     return ok(views.html.manage.allOrder.render(orders, pageIndex, pageSize, totalPage, request()));
+  }
+
+  public static Result updateOrderState(int id, int state) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
+    OrderDB.modifyState(id, state);
+    
+    ObjectNode result = Json.newObject();
+    return ok(result.put("status", 1));
+  }
+
+  public static Result order(int id) throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
+    Order order = OrderDB.get(id);
+    if (order == null) return status(404, "not found");
+    return ok(views.html.manage.order.render(order, request()));
   }
 
   // 用户管理
@@ -223,7 +250,7 @@ public class ManageController extends Base {
     if (pageIndex < 1) pageIndex = 1;
     int pageSize = 10;
 
-    long total = OrderDB.total();
+    long total = UserDB.total();
     int totalPage = (int)(total % pageSize > 0 ? (total / pageSize + 1) : total / pageSize);
 
     List<User> users = UserDB.all((pageIndex - 1) * pageSize, pageSize);

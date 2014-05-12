@@ -8,12 +8,12 @@ import java.sql.SQLException;
 public class OrderDB {
   public static void save(Order order) throws Exception {
     String sql = "insert into " +
-            "order(userId, flowerIds, ordererName, ordererPhone, " + 
+            "`order`(userId, flowerIds, ordererName, ordererPhone, " + 
             "ordererMobile, ordererProvince, ordererCity, ordererEmail, " +
             "consigneeName, consigneePhone, consigneeMobile, consigneeProvince, " +
             "consigneeCity, consigneeAddress, sendArea, sendDate, sendTime, " +
-            "specialNeeds, leaveMessage, leaveName, leaveNameMyName)" +
-            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "specialNeeds, leaveMessage, leaveName, leaveNameMyName, state)" +
+            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     List<Object> params = new ArrayList<Object>();
     params.add(order.userId);
     params.add(order.flowerIds);
@@ -36,6 +36,7 @@ public class OrderDB {
     params.add(order.leaveMessage);
     params.add(order.leaveName);
     params.add(order.leaveNameMyName);
+    params.add(order.state);
     Query.update(sql, params);
   }
 
@@ -64,8 +65,22 @@ public class OrderDB {
       order.leaveMessage = rs.getString("leaveMessage");
       order.leaveName = rs.getInt("leaveName");
       order.leaveNameMyName = rs.getString("leaveNameMyName");
+      order.state = rs.getInt("state");
       orders.add(order);
     }
+  }
+
+  public static Order get(int id) throws Exception {
+    String sql = "select * from `order` where id=" + id;
+    final List<Order> orders = new LinkedList<Order>();
+    Query.query(sql, null, new DataBaseCallback() {
+      @Override
+      public void queryCb(ResultSet rs) throws Exception {
+        super.queryCb(rs);
+        fetchList(orders, rs);
+      }
+    });
+    return orders.size() > 0 ? orders.get(0) : null;
   }
 
   public static List<Order> all(int start, int offset) throws Exception {
@@ -94,5 +109,47 @@ public class OrderDB {
     });
 
     return ct.containsKey("ct") ? ct.get("ct") : 0;
+  }
+
+  public static List<Order> getByUser(int uid, int start, int offset) throws Exception {
+    String sql = "select * from `order` where userId=? order by id limit " + start + "," + offset;
+    List<Object> params = new ArrayList<Object>();
+    params.add(uid);
+
+    final List<Order> orders = new LinkedList<Order>();
+    Query.query(sql, params, new DataBaseCallback() {
+      @Override
+      public void queryCb(ResultSet rs) throws Exception {
+        super.queryCb(rs);
+        fetchList(orders, rs);
+      }
+    });
+    return orders;
+  }
+
+  public static long totalByUser(int uid) throws Exception {
+    String sql = "select count(id) ct from `order` where userId=?";
+    List<Object> params = new ArrayList<Object>();
+    params.add(uid);
+
+    final Map<String, Long> ct = new HashMap<String, Long>();
+    Query.query(sql, params, new DataBaseCallback() {
+      @Override
+      public void queryCb(ResultSet rs) throws Exception {
+        super.queryCb(rs);
+        rs.next();
+        ct.put("ct", rs.getLong("ct"));
+      }
+    });
+
+    return ct.containsKey("ct") ? ct.get("ct") : 0;
+  }
+
+  public static void modifyState(int id, int state) throws Exception {
+    String sql = "update `order` set state=? where id=?";
+    List<Object> params = new ArrayList<Object>();
+    params.add(state);
+    params.add(id);
+    Query.update(sql, params);
   }
 }

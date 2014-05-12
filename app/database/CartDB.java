@@ -43,4 +43,10 @@ public class CartDB {
         params.add(uid);
         Query.update("delete from cart where id=? and userId=?", params);
     }
+
+    public static void deleteByUserId(int uid) throws Exception {
+        List<Object> params = new ArrayList<Object>();
+        params.add(uid);
+        Query.update("delete from cart where userId=?", params);
+    }
 }

@@ -14,7 +14,7 @@ import java.util.*;
  */
 abstract class Base extends Controller {
   public static String getString(String key, String dftStr, Map<String, String[]> data) {
-    if (!data.containsKey(key)) return dftStr;
+    if (data == null || !data.containsKey(key)) return dftStr;
     
     String[] value = data.get(key);
     if (value == null || value.length == 0) return dftStr;
