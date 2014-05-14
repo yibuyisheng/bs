@@ -29,7 +29,7 @@
           </td>
           <td>
             @if(order.user == null){
-              order.userId
+              @order.userId
             }else{
               @order.user.nickname / @order.user.truename
             }

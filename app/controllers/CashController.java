@@ -95,6 +95,9 @@ public class CashController extends Base {
     int totalPage = (int)(total % pageSize > 0 ? (total / pageSize + 1) : total / pageSize);
 
     List<Order> orders = OrderDB.getByUser(self.get().id, (pageIndex - 1) * pageSize, pageSize);
+    for (Order order : orders) {
+        order.user = self.get();
+    }
 
     return ok(views.html.cash.orders.render(orders, pageIndex, pageSize, totalPage, parentList, menuClassify, self(), request()));
   }
