@@ -14,12 +14,12 @@
         <a href="/user/login?url=@request.path()">登录</a>
         <a href="/user/regist">注册</a>
       }
-      <div class="input-group mt10 mb10">
-        <input type="text" class="form-control">
+      <form class="input-group mt10 mb10" action="/search">
+        <input type="text" class="form-control" name="search">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">搜索</button>
+          <button class="btn btn-default" type="submit">搜索</button>
         </span>
-      </div>
+      </form>
     </div>
   </div>
 </div>

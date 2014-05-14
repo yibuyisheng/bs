@@ -35,4 +35,34 @@ public class Application extends Base {
     return null;
   }
 
+  public static Result search() throws Exception {
+    Map<String, Object> map = menuClassify();
+    List<Classify> parentList = (List<Classify>)map.get("parents");
+    Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
+
+    String search = request().getQueryString("search");
+    if (search == null) search = "";
+
+    String page = request().getQueryString("page");
+    if (page == null || page == "") page = "1";
+    int pageIndex = Integer.parseInt(page);
+    if (pageIndex < 1) pageIndex = 1;
+
+    int pageSize = 10;
+
+    List<Flower> flowers = FlowerDB.search(search, (pageIndex - 1) * pageSize, pageSize);
+    long flowerCount = FlowerDB.searchTotal(search);
+    int totalPage = (int)(flowerCount % pageSize == 0 ? flowerCount / pageSize : (flowerCount / pageSize + 1));
+
+    return ok(views.html.search.render(
+      search, 
+      flowers,
+      pageIndex, pageSize, totalPage, 
+      parentList, 
+      menuClassify, 
+      self(), 
+      request())
+    );
+  }
+
 }

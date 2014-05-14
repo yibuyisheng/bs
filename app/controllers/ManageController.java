@@ -239,6 +239,17 @@ public class ManageController extends Base {
     return ok(views.html.manage.order.render(order, request()));
   }
 
+  public static Result deleteOrder(int id) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
+    OrderDB.delete(id);
+
+    ObjectNode result = Json.newObject();
+    return ok(result.put("status", 1));
+  }
+
   // 用户管理
   public static Result users() throws Exception {
     if (!isAdmin()) return redirect("/user/login?url=" + request().path());

@@ -55,7 +55,11 @@
           <td>
             <a href="/manage/order/detail/@order.id" target="_blank">详细</a>
             @if(order.state == 1){
-              <a class="send" href="javascript:;" data-oid="@order.id" target="_blank">发货</a>
+              <a class="send" href="javascript:;" data-oid="@order.id">发货</a>
+            }
+            @if(order.state == 1 || order.state == 3){
+              @*已下单和已确认收获的订单都可以删除*@
+              <a class="del" href="javascript:;" data-oid="@order.id">删除</a>
             }
           </td>
         </tr>

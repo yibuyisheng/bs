@@ -144,4 +144,36 @@ public class FlowerDB {
     params.add(id);
     Query.update("delete from flower where id=?", params);
   }
+
+  public static List<Flower> search(String search, int start, int offset) throws Exception {
+    String sql = search.replace(" ", "") == "" ?
+      ("select * from flower order by id limit " + start + "," + offset) :
+      ("select * from flower where title like '%" + search.replace("'", "\\'") +  "%' order by id limit " + start + "," + offset);
+    final List<Flower> flowers = new ArrayList<Flower>();
+    Query.query(sql, null, new DataBaseCallback() {
+      @Override
+      public void queryCb(ResultSet rs) throws Exception {
+        super.queryCb(rs);
+        fetchList(flowers, rs);
+      }
+    });
+    return flowers;
+  }
+
+  public static long searchTotal(String search) throws Exception {
+    String sql = search.replace(" ", "") == "" ?
+      ("select count(id) ct from flower") :
+      ("select count(id) ct from flower where title like '%" + search.replace("'", "\\'") +  "%'");
+    final Map<String, Long> ct = new HashMap<String, Long>();
+    Query.query(sql, null, new DataBaseCallback() {
+      @Override
+      public void queryCb(ResultSet rs) throws Exception {
+        super.queryCb(rs);
+        rs.next();
+        ct.put("ct", rs.getLong("ct"));
+      }
+    });
+
+    return ct.containsKey("ct") ? ct.get("ct") : 0;
+  }
 }

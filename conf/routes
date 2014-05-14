@@ -28,6 +28,7 @@ POST    /manage/post/hide/:fid      controllers.ManageController.hidePost(fid: I
 GET     /manage/orders              controllers.ManageController.orders()
 POST    /manage/order/send/:oid     controllers.ManageController.updateOrderState(oid: Int, state: Int=2)
 GET     /manage/order/detail/:id    controllers.ManageController.order(id: Int)
+POST    /manage/order/del/:id       controllers.ManageController.deleteOrder(id: Int)
 GET     /manage/users               controllers.ManageController.users()
 
 GET     /flower/add                 controllers.ManageController.flowerAdd()
@@ -50,3 +51,6 @@ GET     /forum/add                  controllers.ForumController.add()
 POST    /forum/add                  controllers.ForumController.save()
 GET     /forum/detail/:fid          controllers.ForumController.detail(fid: Int)
 POST    /forum/reply/:fid           controllers.ForumController.reply(fid: Int)
+
+
+GET     /search                     controllers.Application.search()

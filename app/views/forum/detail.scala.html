@@ -9,7 +9,7 @@
     <div class="container">
       <h1 class="text-center">@forum.title</h1>
       <div>
-        @forum.content
+        @Html(forum.content)
       </div>
     </div>
     <div class="container">
@@ -43,7 +43,7 @@
             </h4>
           </a>
           <div class="media-body">
-            @reply.content
+            @Html(reply.content)
           </div>
         </div>
       }

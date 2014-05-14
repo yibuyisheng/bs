@@ -152,4 +152,11 @@ public class OrderDB {
     params.add(id);
     Query.update(sql, params);
   }
+
+  public static void delete(int id) throws Exception {
+    String sql = "delete from `order` where id=?";
+    List<Object> params = new ArrayList<Object>();
+    params.add(id);
+    Query.update(sql, params);
+  }
 }
