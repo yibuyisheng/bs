@@ -27,10 +27,10 @@ ul {
   border-radius: 0 !important;
 }*/
 
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover {
+/*.nav-pills>li.active>a, .nav-pills>li.active>a:hover {
   background-color: #FF4326;
   padding: 8px;
-}
+}*/
 
 .right-box h5 {
   border-bottom: 1px solid #e7e7e7;

@@ -1,0 +1,8 @@
+@(request: play.mvc.Http.Request)
+<ul class="nav nav-pills nav-stacked">
+  <li@if(request.path() == "/myzone"){ class="active"}><a href="/myzone">我的个人信息</a></li>
+  <li@if(request.path() == "/cart"){ class="active"}><a href="/cart">我的购物车</a></li>
+  <li@if(request.path() == "/orders"){ class="active"}><a href="/orders">我的订单</a></li>
+  <li@if(request.path() == "/myposts"){ class="active"}><a href="/myposts">我发布的帖子</a></li>
+  <li@if(request.path() == "/myreply"){ class="active"}><a href="/myreply">我回复的帖子</a></li>
+</ul>

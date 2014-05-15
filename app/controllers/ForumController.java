@@ -14,6 +14,7 @@ import database.*;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
+import scala.Option;
 
 public class ForumController extends Base {
   public static Result forum() throws Exception {
@@ -113,5 +114,51 @@ public class ForumController extends Base {
     ForumDB.addReplyNo(fid);
 
     return ok(result.put("status", 1));
+  }
+
+  public static Result myPosts() throws Exception {
+    Option<User> self = self();
+    if (!self.isDefined()) return redirect( "/user/login?url=" + request().path());
+
+    Map<String, Object> map = menuClassify();
+    List<Classify> parentList = (List<Classify>)map.get("parents");
+    Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
+
+    String page = request().getQueryString("page");
+    if (page == null || page == "") page = "1";
+
+    int pageIndex = Integer.parseInt(page);
+    if (pageIndex < 1) pageIndex = 1;
+    int pageSize = 3;
+
+    long replyCount = ForumDB.postsCountByUserId(self.get().id);
+    int totalPage = (int)(replyCount % pageSize > 0 ? (replyCount / pageSize + 1) : replyCount / pageSize);
+
+    List<Forum> forums = ForumDB.postsByUserId(self.get().id, (pageIndex - 1) * pageSize, pageSize);
+
+    return ok(views.html.forum.myPosts.render(forums, pageIndex, pageSize, totalPage, parentList, menuClassify, self(), request()));
+  }
+
+  public static Result myReply() throws Exception {
+    Option<User> self = self();
+    if (!self.isDefined()) return redirect( "/user/login?url=" + request().path());
+
+    Map<String, Object> map = menuClassify();
+    List<Classify> parentList = (List<Classify>)map.get("parents");
+    Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
+
+    String page = request().getQueryString("page");
+    if (page == null || page == "") page = "1";
+
+    int pageIndex = Integer.parseInt(page);
+    if (pageIndex < 1) pageIndex = 1;
+    int pageSize = 3;
+
+    long replyCount = ForumDB.replyCountByUserId(self.get().id);
+    int totalPage = (int)(replyCount % pageSize > 0 ? (replyCount / pageSize + 1) : replyCount / pageSize);
+
+    List<Forum> forums = ForumDB.replyByUserId(self.get().id, (pageIndex - 1) * pageSize, pageSize);
+
+    return ok(views.html.forum.myReply.render(forums, pageIndex, pageSize, totalPage, parentList, menuClassify, self(), request()));
   }
 }

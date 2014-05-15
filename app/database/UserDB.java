@@ -37,6 +37,17 @@ public class UserDB {
     Query.update("insert into user(nickname, email, truename, password) values(?,?,?,?)", params);
   }
 
+  public static void modify(User user) throws Exception {
+    List<Object> params = new ArrayList<Object>();
+    params.add(user.nickname);
+    params.add(user.email);
+    params.add(user.truename);
+    params.add(user.password);
+    params.add(user.id);
+
+    Query.update("update user set nickname=?, email=?, truename=?, password=? where id=?", params);
+  }
+
   public static User getByAccount(String account) throws Exception {
     List<Object> params = new ArrayList<Object>();
     params.add(account);

@@ -86,3 +86,34 @@ $(function() {
     });
   });
 });
+
+// myzone页面
+$(function() {
+  var $hide = $('.form-group.hide, .row.hide');
+  $('.show-modify-password').on('click', function() {
+    if ($(this).text() == '修改密码') {
+      $hide.removeClass('hide');
+      $(this).text('取消修改密码');
+    } else {
+      $hide.addClass('hide');
+      $(this).text('修改密码');
+    }
+  });
+
+  var $oldPassword = $('form input[name="old-password"]');
+  var $password = $('form input[name="password"]');
+  var $confirmPassword = $('form input[name="confirm-password"]');
+  $('#modify-submit').on('click', function() {
+    if (!$oldPassword.val()) return showError('请输入旧密码！');
+    else if (!$password.val()) return showError('请输入新密码！');
+    else if ($password.val() !== $confirmPassword.val()) return showError('两次密码输入不一致！');
+    $.ajax({
+      type: 'post',
+      url: '/ajax/user/modify',
+      data: $('form').serialize()
+    }).done(function(data) {
+      if (data.status !== 1) return showError(data.msg ? data.msg : '未知错误！');
+      window.location.reload();
+    });
+  });
+});

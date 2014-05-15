@@ -3,56 +3,66 @@
 @main("我的订单") {
 @views.html.common.header(parentList, menuClassify, self, request, None)
 
-<div class="container">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>编号</th>
-          <th>送货日期</th>
-          <th>送货时段</th>
-          <th>购买者</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-      @orders.map{ order =>
-        <tr>
-          <td>
-            @order.id
-          </td>
-          <td>
-            @order.sendDate
-          </td>
-          <td>
-            @Order.sendTimeStr(order.sendTime)
-          </td>
-          <td>
-            @if(order.user == null){
-              @order.userId
-            }else{
-              @order.user.nickname / @order.user.truename
-            }
-          </td>
-          <td>
-            @Order.stateStr(order.state)
-          </td>
-          <td>
-            <a href="/order/detail/@order.id" target="_blank">详细</a>
-            @if(order.state == 1){
-              <a class="send" href="javascript:;" data-oid="@order.id" target="_blank">发货</a>
-            }
-          </td>
-        </tr>
-      }
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="6" align="right">@views.html.common.page("/orders", page, pageSize, totalPage)</td>
-        </tr>
-      </tfoot>
-    </table>
+<div class="container mt10">
+  <div class="col-md-2">
+    @views.html.user.leftNav(request)
   </div>
+  <div class="col-md-10">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">我的订单</h3>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>送货日期</th>
+            <th>送货时段</th>
+            <th>购买者</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+        @orders.map{ order =>
+          <tr>
+            <td>
+              @order.id
+            </td>
+            <td>
+              @order.sendDate
+            </td>
+            <td>
+              @Order.sendTimeStr(order.sendTime)
+            </td>
+            <td>
+              @if(order.user == null){
+                @order.userId
+              }else{
+                @order.user.nickname / @order.user.truename
+              }
+            </td>
+            <td>
+              @Order.stateStr(order.state)
+            </td>
+            <td>
+              <a href="/order/detail/@order.id" target="_blank">详细</a>
+              @if(order.state == 1){
+                <a class="send" href="javascript:;" data-oid="@order.id" target="_blank">发货</a>
+              }
+            </td>
+          </tr>
+        }
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6" align="right">@views.html.common.page("/orders", page, pageSize, totalPage)</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
 
 @views.html.common.footer()
 } {

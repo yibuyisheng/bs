@@ -4,44 +4,49 @@
 @views.html.common.header(parentList, menuClassify, self, request)
 
 <div class="container mt10">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">我的购物车</h3>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>编号</th>
-            <th>商品名称</th>
-            <th>价格</th>
-            <th>数量</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-            @carts.map{ c =>
-                @flowers.filter(f => f.id == c.flowerId).headOption.map{f =>
-                    <tr>
-                        <td>@c.id</td>
-                        <td>@f.title</td>
-                        <td>@f.price</td>
-                        <td>@c.count</td>
-                        <td>
-                            <a href="javascript:;" data-cid="@c.id" class="del">删除</a>
-                        </td>
-                    </tr>
+    <div class="col-md-2">
+      @views.html.user.leftNav(request)
+    </div>
+    <div class="col-md-10">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">我的购物车</h3>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>编号</th>
+                <th>商品名称</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+                @carts.map{ c =>
+                    @flowers.filter(f => f.id == c.flowerId).headOption.map{f =>
+                        <tr>
+                            <td>@c.id</td>
+                            <td>@f.title</td>
+                            <td>@f.price</td>
+                            <td>@c.count</td>
+                            <td>
+                                <a href="javascript:;" data-cid="@c.id" class="del">删除</a>
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-            @if(carts.size() == 0){
-                <tr><td align="center" colspan="5">暂无商品</td></tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr><td colspan="4"></td><td align="right">
-                <button type="button" class="btn btn-primary btn-block" id="go-cash" onclick="window.location.href='/cash'">去付款</button>
-            </td></tr>
-        </tfoot>
-      </table>
+                @if(carts.size() == 0){
+                    <tr><td align="center" colspan="5">暂无商品</td></tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr><td colspan="4"></td><td align="right">
+                    <button type="button" class="btn btn-primary btn-block" id="go-cash" onclick="window.location.href='/cash'">去付款</button>
+                </td></tr>
+            </tfoot>
+          </table>
+        </div>
     </div>
   </div>
 

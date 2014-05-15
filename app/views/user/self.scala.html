@@ -1,0 +1,75 @@
+@(parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+
+@main("登录") {
+@views.html.common.header(parentList, menuClassify, self, request)
+
+<div class="container mt10">
+  <div class="col-md-2">
+    @views.html.user.leftNav(request)
+  </div>
+  <div class="col-md-10">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">我的个人信息</h3>
+      </div>
+      <form class="form-horizontal mt10" role="form">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">昵称</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="nickname" value="@self.get.nickname" readonly="readonly" placeholder="请输入昵称">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">邮箱</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" name="email" value="@self.get.email" readonly="readonly" placeholder="请输入邮箱">
+          </div>
+        </div>
+        <div class="form-group mt10">
+          <label class="col-sm-2 control-label">真实姓名</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="truename" value="@self.get.truename" readonly="readonly" placeholder="请输入真实姓名">
+          </div>
+        </div>
+        <div class="form-group mt10">
+          <label class="col-sm-2 control-label"></label>
+          <div class="col-sm-10">
+            <a href="javascript:;" class="show-modify-password">修改密码</a>
+          </div>
+        </div>
+        <div class="form-group mt10 hide">
+          <label class="col-sm-2 control-label">旧密码</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" name="old-password" placeholder="请输入旧密码">
+          </div>
+        </div>
+        <div class="form-group mt10 hide">
+          <label class="col-sm-2 control-label">新密码</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" name="password" placeholder="请输入新密码">
+          </div>
+        </div>
+        <div class="form-group mt10 hide">
+          <label class="col-sm-2 control-label">确认新密码</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" name="confirm-password" placeholder="确认您的新密码">
+          </div>
+        </div>
+        <div class="clearfix mt10 row hide">
+          <div class="col-md-11 text-right" id="error-text">
+            <label class="control-label"></label>
+          </div>
+          <div class="col-md-1">
+            <input type="hidden" name="id" value="@self.get.id">
+            <button type="button" class="btn btn-default pull-right" id="modify-submit">提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@views.html.common.footer()
+} {
+<script src="@routes.Assets.at("javascripts/modules/user.js")"></script>
+}

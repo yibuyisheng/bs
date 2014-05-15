@@ -15,6 +15,8 @@ POST    /ajax/user/regist           controllers.UserController.registAjax()
 GET     /user/login                 controllers.UserController.login()
 POST    /ajax/user/login            controllers.UserController.loginAjax()
 
+POST    /ajax/user/modify           controllers.UserController.modify()
+
 GET     /user/out                   controllers.UserController.out()
 
 GET     /manage/flower/add          controllers.ManageController.flowerAdd()
@@ -54,3 +56,7 @@ POST    /forum/reply/:fid           controllers.ForumController.reply(fid: Int)
 
 
 GET     /search                     controllers.Application.search()
+
+GET     /myzone                     controllers.UserController.me()
+GET     /myposts                    controllers.ForumController.myPosts()
+GET     /myreply                    controllers.ForumController.myReply()

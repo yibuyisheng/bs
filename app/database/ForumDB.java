@@ -217,4 +217,66 @@ public class ForumDB {
     params.add(id);
     Query.update(sql, params);
   }
+
+  public static List<Forum> postsByUserId(int uid, int start, int offset) throws Exception {
+    String sql = "select * from forum where kind=? and state=? and providerId=? order by createTime desc limit " + start + "," + offset;
+    List<Object> params = new ArrayList<Object>();
+    params.add(Forum.KIND_POST);
+    params.add(Forum.STATE_SHOW);
+    params.add(uid);
+
+    return _forums(sql, params);
+  } 
+
+  public static long postsCountByUserId(int uid) throws Exception {
+    String sql = "select count(id) ct from forum where kind=? and state=? and providerId=?";
+    List<Object> params = new ArrayList<Object>();
+    params.add(Forum.KIND_POST);
+    params.add(Forum.STATE_SHOW);
+    params.add(uid);
+
+    final Map<String, Long> count = new HashMap<String, Long>();
+    count.put("ct", 0L);
+    Query.query(sql, params, new DataBaseCallback() {
+        @Override
+        public void queryCb(ResultSet rs) throws Exception {
+          rs.next();
+          count.put("ct", rs.getLong("ct"));
+        }
+      }
+    );
+    return count.get("ct");
+  } 
+
+  public static List<Forum> replyByUserId(int uid, int start, int offset) throws Exception {
+    String sql = "select * from( " +
+                    "select f1.* from forum f1 " +
+                    "inner join forum f2 on f1.id=f2.targetId " +
+                    "where f1.kind=" + Forum.KIND_POST + " and f2.kind=" + Forum.KIND_REPLY + " and f2.providerId=" + uid + " " +
+                    "group by f1.id " +
+                  ") x order by x.createTime desc limit " + start + "," + offset;
+
+    return _forums(sql, null);
+  } 
+
+  public static long replyCountByUserId(int uid) throws Exception {
+    String sql = "select count(id) ct from( " +
+                    "select f1.* from forum f1 " +
+                    "inner join forum f2 on f1.id=f2.targetId " +
+                    "where f1.kind=" + Forum.KIND_POST + " and f2.kind=" + Forum.KIND_REPLY + " and f2.providerId=" + uid + " " +
+                    "group by f1.id " +
+                  ") x ";
+
+    final Map<String, Long> count = new HashMap<String, Long>();
+    count.put("ct", 0L);
+    Query.query(sql, null, new DataBaseCallback() {
+        @Override
+        public void queryCb(ResultSet rs) throws Exception {
+          rs.next();
+          count.put("ct", rs.getLong("ct"));
+        }
+      }
+    );
+    return count.get("ct");
+  } 
 }

@@ -6,9 +6,8 @@
     </div>
     <div class="col-md-8 text-right">
       @self.map { s =>
-        欢迎您，@if(s.id == 0){<a href="/manage/flowers">管理员</a>}else{<a href="javascript:;">@s.email</a>}，
-        <a href="/cart">我的购物车</a>，
-        <a href="/orders">我的订单</a>，
+        欢迎您，@if(s.id == 0){<a href="/manage/flowers">管理</a>}else{<a href="javascript:;">@s.email</a>}，
+        <a href="/myzone">个人中心</a>，
         <a href="/user/out?url=@request.path()">退出</a>
       }.getOrElse{
         <a href="/user/login?url=@request.path()">登录</a>
