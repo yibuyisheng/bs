@@ -13,7 +13,7 @@
           @for((flower, index) <- flowers zipWithIndex){
             <div class="col-sm-6 col-md-4">
               <div class="thumbnail">
-                <img data-src="@flower.image" src="@flower.image" style="height:200px;">
+                <img data-src="@views.html.common.flowerImgUrl(flower.image)" src="@views.html.common.flowerImgUrl(flower.image)" style="height:200px;">
                 <div class="caption">
                   <h4>@flower.title</h4>
                   <p>@flower.abs</p>
