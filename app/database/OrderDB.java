@@ -159,4 +159,18 @@ public class OrderDB {
     params.add(id);
     Query.update(sql, params);
   }
+
+  public static Order getRecentOneByUserIdAndFlowerId(int uid, int flowerId) throws Exception {
+    String sql = "select * from `order` where userId=" + uid + " and (flowerIds like '{" + flowerId + ":%' or flowerIds like '%," + flowerId + ":')" +
+                  " limit 0,1";
+    final List<Order> orders = new LinkedList<Order>();
+    Query.query(sql, null, new DataBaseCallback() {
+      @Override
+      public void queryCb(ResultSet rs) throws Exception {
+        super.queryCb(rs);
+        fetchList(orders, rs);
+      }
+    });
+    return orders.size() > 0 ? orders.get(0) : null;
+  }
 }

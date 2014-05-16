@@ -1,4 +1,4 @@
-@(currentClassify: Classify, flower: Flower, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+@(currentClassify: Classify, flower: Flower, comments: List[FlowerComment], page: Int, pageSize: Int, totalPage: Int, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
 
 @main("鲜花分类") {
 @views.html.common.header(parentList, menuClassify, self, request, Some(currentClassify))
@@ -16,7 +16,12 @@
               <li class="list-group-item">现价：@flower.price</li>
             </ul>
             <div class="row">
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="add-to-cart" data-id="@flower.id" data-count="1">加入购物车</button>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-default btn-lg btn-block " id="comment" data-id="@flower.id">我要点评</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-block btn-warning" id="add-to-cart" data-id="@flower.id" data-count="1">加入购物车</button>
+                </div>
             </div>
         </div>
     </div>
@@ -24,8 +29,48 @@
         @flower.detail
     </div>
 </div>
+<div class="container">
+  @comments.map{comment =>
+    <div class="media">
+      <a class="pull-left" href="javascript:;">
+        <h4 class="media-heading">
+          @if(comment.provider == null){
+            @comment.providerId
+          }else{
+            @comment.provider.nickname
+          }
+        </h4>
+      </a>
+      <div class="media-body">
+        @Html(comment.content)
+      </div>
+    </div>
+  }
+  <div class="row text-right">
+    @views.html.common.page("/flower/" + flower.id, page, pageSize, totalPage)
+  </div>
+</div>
+
+<div class="modal fade comment-box hide">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">我要评价</h4>
+      </div>
+      <div class="modal-body">
+        <textarea name="comment"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" data-id="@flower.id">确定评价</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @views.html.common.footer()
 } {
+<script src="@routes.Assets.at("lib/kind-editor/kindeditor-all.js")"></script>
 <script src="@routes.Assets.at("javascripts/modules/flower.js")"></script>
 }

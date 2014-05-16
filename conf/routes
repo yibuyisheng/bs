@@ -60,3 +60,5 @@ GET     /search                     controllers.Application.search()
 GET     /myzone                     controllers.UserController.me()
 GET     /myposts                    controllers.ForumController.myPosts()
 GET     /myreply                    controllers.ForumController.myReply()
+
+POST    /flower/comment/:fid        controllers.FlowerController.comment(fid: Int)
