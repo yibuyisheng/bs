@@ -1,0 +1,13 @@
+@(notice: Notice, parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], self: Option[User], request: play.mvc.Http.Request)
+
+@main("欢迎来到我们的鲜花销售网站") {
+  @views.html.common.header(parentList, menuClassify, self, request)
+  <div class="container mt10">
+    <h1 class="text-center">@notice.title</h1>
+    <h5 class="text-center">@notice.createDate</h5>
+    <div>@notice.content</div>
+  </div>
+  @views.html.common.footer()
+} {
+  <script tyoe="text/javascript" src="@routes.Assets.at("javascripts/modules/index.js")"></script>
+}

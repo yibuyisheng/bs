@@ -1,4 +1,4 @@
-@(parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], recommandFlowers: List[Flower], self: Option[User], request: play.mvc.Http.Request)
+@(notices: List[Notice], parentList: List[Classify], menuClassify: Map[Classify, List[Classify]], recommandFlowers: List[Flower], self: Option[User], request: play.mvc.Http.Request)
 
 @main("欢迎来到我们的鲜花销售网站") {
   @views.html.common.header(parentList, menuClassify, self, request)
@@ -31,6 +31,24 @@
             <ul class="nav nav-pills nav-stacked">
               <li><a href="javascript:;">鲜花/梦幻之恋 永恒的爱恋，无尽的爱</a></li>
               <li><a href="javascript:;">鲜花/一生的期盼 喜欢你是淡淡的爱</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">公告</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+              @notices.map{n =>
+                <li>
+                  <a href="/notice/@n.id" target="_blank">
+                    @n.title 
+                    <span class="pull-right" style="color:black;font-size:12px;">@n.createDate</span>
+                  </a>
+                </li>
+              }
             </ul>
           </div>
         </div>

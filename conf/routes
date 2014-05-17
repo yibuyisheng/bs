@@ -32,6 +32,10 @@ POST    /manage/order/send/:oid     controllers.ManageController.updateOrderStat
 GET     /manage/order/detail/:id    controllers.ManageController.order(id: Int)
 POST    /manage/order/del/:id       controllers.ManageController.deleteOrder(id: Int)
 GET     /manage/users               controllers.ManageController.users()
+GET     /manage/notice              controllers.ManageController.notices()
+POST    /manage/notice/add          controllers.ManageController.addNotice()
+POST    /manage/notice/modify/:id   controllers.ManageController.modifyNotice(id: Int)
+POST    /manage/notice/del/:id      controllers.ManageController.delNotice(id: Int)
 
 GET     /flower/add                 controllers.ManageController.flowerAdd()
 POST    /flower/add/ajax            controllers.ManageController.addFlowerAjax()
@@ -62,3 +66,5 @@ GET     /myposts                    controllers.ForumController.myPosts()
 GET     /myreply                    controllers.ForumController.myReply()
 
 POST    /flower/comment/:fid        controllers.FlowerController.comment(fid: Int)
+
+GET     /notice/:id                 controllers.NoticeController.notice(id: Int)

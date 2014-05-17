@@ -1,0 +1,132 @@
+@(notices: List[Notice], page: Int, pageSize: Int, totalPage: Int, request: play.mvc.Http.Request)
+<!DOCTYPE html>
+<html>
+<head>
+  <title>公告管理</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="@routes.Assets.at("lib/bootstrap/dist/css/bootstrap.min.css")">
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  @views.html.manage.common.header(request)
+
+  <div class="container">
+    <div><a href="javascript:;" class="add-notice">添加公告</a></div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>编号</th>
+          <th>标题</th>
+          <th>创建日期</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+      @notices.map{ notice =>
+        <tr>
+          <td>
+            @notice.id
+          </td>
+          <td>
+            @notice.title
+          </td>
+          <td>
+            @notice.createDate
+          </td>
+          <td>
+            <a href="javascript:;" class="modify" data-id="@notice.id" data-title="@notice.title" data-content="@notice.content">修改</a>
+            <a href="javascript:;" class="del" data-id="@notice.id">删除</a>
+          </td>
+        </tr>
+      }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" align="right">@views.html.common.page("/manage/notice", page, pageSize, totalPage)</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="modal fade add-notice-box hide">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">添加公告</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">标题</label>
+              <div class="col-sm-10">
+                <input type="text" name="title">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">内容</label>
+              <div class="col-sm-10">
+                <textarea name="notice"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary">确定添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modify-notice-box hide">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">修改公告</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">标题</label>
+              <div class="col-sm-10">
+                <input type="text" name="title">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">内容</label>
+              <div class="col-sm-10">
+                <textarea name="notice"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary">确定修改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @views.html.common.dialog()
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="@routes.Assets.at("lib/jquery/dist/jquery.min.js")"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="@routes.Assets.at("lib/bootstrap/dist/js/bootstrap.min.js")"></script>
+
+  <script src="@routes.Assets.at("lib/kind-editor/kindeditor-all.js")"></script>
+  <script src="@routes.Assets.at("javascripts/modules/manage/notice.js")"></script>
+
+</body>
+</html>

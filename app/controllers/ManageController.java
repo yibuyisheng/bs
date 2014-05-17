@@ -268,4 +268,59 @@ public class ManageController extends Base {
 
     return ok(views.html.manage.allUser.render(users, pageIndex, pageSize, totalPage, request()));
   }
+
+  // 公告管理
+  public static Result notices() throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
+    String page = request().getQueryString("page");
+    if (page == null || page == "") page = "1";
+
+    int pageIndex = Integer.parseInt(page);
+    if (pageIndex < 1) pageIndex = 1;
+    int pageSize = 10;
+
+    long total = NoticeDB.total();
+    int totalPage = (int)(total % pageSize > 0 ? (total / pageSize + 1) : total / pageSize);
+
+    List<Notice> notices = NoticeDB.getList((pageIndex - 1) * pageSize, pageSize);
+
+    return ok(views.html.manage.allNotice.render(notices, pageIndex, pageSize, totalPage, request()));
+  }
+
+  public static Result addNotice() throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
+    String title = getString("title", "");
+    String content = getString("content", "");
+    Notice notice = new Notice(title, content, new Date());
+    NoticeDB.save(notice);
+
+    return ok(Json.newObject().put("status", 1));
+  }
+
+  public static Result modifyNotice(int id) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
+    String title = getString("title", "");
+    String content = getString("content", "");
+    Notice notice = new Notice(id, title, content, new Date());
+    NoticeDB.modify(notice);
+
+    return ok(Json.newObject().put("status", 1));
+  }
+
+  public static Result delNotice(int id) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
+    NoticeDB.del(id);
+
+    return ok(Json.newObject().put("status", 1));
+  }
 }

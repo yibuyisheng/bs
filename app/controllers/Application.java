@@ -9,7 +9,7 @@ import views.html.*;
 
 import database.Query;
 import database.DataBaseCallback;
-import models.Flower;
+import models.*;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,7 +28,9 @@ public class Application extends Base {
     List<Classify> parentList = (List<Classify>)map.get("parents");
     Map<Classify, List<Classify>> menuClassify = (Map<Classify, List<Classify>>)map.get("parentChildMap");
 
-    return ok(index.render(parentList, menuClassify, recommandFlowers, self(), request()));
+    List<Notice> notices = NoticeDB.getList(0, 5);
+
+    return ok(index.render(notices, parentList, menuClassify, recommandFlowers, self(), request()));
   }
 
   public static Result hotFlowers() {
