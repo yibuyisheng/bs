@@ -103,7 +103,7 @@ public class UserDB {
   }
 
   public static List<User> all(int start, int offset) throws Exception {
-    String sql = "select * from `user` where id<>0 order by id limit " + start + "," + offset;
+    String sql = "select * from `user` where id<>0 order by id desc limit " + start + "," + offset;
     final List<User> orders = new LinkedList<User>();
     Query.query(sql, null, new DataBaseCallback() {
       @Override
@@ -128,5 +128,10 @@ public class UserDB {
     });
 
     return ct.containsKey("ct") ? ct.get("ct") : 0;
+  }
+
+  public static void del(int id) throws Exception {
+    String sql = "delete from `user` where id=" + id;
+    Query.update(sql, null);
   }
 }

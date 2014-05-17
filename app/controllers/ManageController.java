@@ -16,14 +16,6 @@ import scala.Option;
  * Created by zhangli on 14-3-30.
  */
 public class ManageController extends Base {
-  private static boolean isAdmin() {
-    Option<User> self = self();
-    if (!self.isDefined() || self.get().id != 0) {
-      return false;
-    }
-    return true;
-  }
-
   public static Result flowerAdd() throws Exception {
     if (!isAdmin()) return redirect("/user/login?url=" + request().path());
 
@@ -241,7 +233,7 @@ public class ManageController extends Base {
 
   public static Result deleteOrder(int id) throws Exception {
     if (!isAdmin()) {
-      return ok(Json.newObject().put("status", -1));
+      return ok(Json.newObject().put("status", -1).put("msg", "请登录！"));
     }
 
     OrderDB.delete(id);
@@ -267,6 +259,14 @@ public class ManageController extends Base {
     List<User> users = UserDB.all((pageIndex - 1) * pageSize, pageSize);
 
     return ok(views.html.manage.allUser.render(users, pageIndex, pageSize, totalPage, request()));
+  }
+  public static Result delUser(int id) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1).put("msg", "请登录！"));
+    }
+
+    UserDB.del(id);
+    return ok(Json.newObject().put("status", 1));
   }
 
   // 公告管理

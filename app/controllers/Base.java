@@ -13,6 +13,14 @@ import java.util.*;
  * Created by zhangli on 14-3-29.
  */
 abstract class Base extends Controller {
+  protected static boolean isAdmin() {
+    Option<User> self = self();
+    if (!self.isDefined() || self.get().id != 0) {
+      return false;
+    }
+    return true;
+  }
+
   public static String getString(String key, String dftStr, Map<String, String[]> data) {
     if (data == null || !data.containsKey(key)) return dftStr;
     

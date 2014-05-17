@@ -43,8 +43,13 @@ public class UserController extends Base {
     String email = getString("email", "", data);
     String truename = getString("truename", "", data);
     String password = getString("password", "", data);
+    String from = getString("from", "", data);
 
     ObjectNode result = Json.newObject();
+
+    if (from.equals("manage")) password = "1234567890";
+    if (from.equals("manage") && !isAdmin()) return ok(result.put("status", 0).put("msg", "没有权限！"));
+
     if (!nicknamePtn.matcher(nickname).matches()) {
       return ok(result.put("status", 0).put("msg", "昵称只能由6到12个a至z的字符组成！"));
     }
@@ -65,8 +70,10 @@ public class UserController extends Base {
 
       User user = new User(nickname, email, truename, password);
       UserDB.save(user);
-      session().put("email", user.email);
-      session().put("nickname", user.nickname);
+      if (!from.equals("manage")) {
+        session().put("email", user.email);
+        session().put("nickname", user.nickname);
+      }
     } catch (Exception e) {
       e.printStackTrace();
       return ok(result.put("status", 0).put("msg", "服务器错误！"));

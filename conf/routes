@@ -32,6 +32,7 @@ POST    /manage/order/send/:oid     controllers.ManageController.updateOrderStat
 GET     /manage/order/detail/:id    controllers.ManageController.order(id: Int)
 POST    /manage/order/del/:id       controllers.ManageController.deleteOrder(id: Int)
 GET     /manage/users               controllers.ManageController.users()
+POST    /manage/user/del/:id        controllers.ManageController.delUser(id: Int)
 GET     /manage/notice              controllers.ManageController.notices()
 POST    /manage/notice/add          controllers.ManageController.addNotice()
 POST    /manage/notice/modify/:id   controllers.ManageController.modifyNotice(id: Int)
