@@ -18,6 +18,19 @@
 <body>
   @views.html.manage.common.header(request)
 
+  <div class="container mt10">
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">订单内容</h3></div>
+        <form class="form-horizontal panel-body mt10" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">鲜花编号与数量：</label>
+                <div class="col-sm-10" id="number-count" data-json="@order.flowerIds">
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+
   @views.html.common.orderDetail(order, true)
 
   @views.html.common.dialog()
@@ -29,6 +42,18 @@
 
   <script src="@routes.Assets.at("lib/kind-editor/kindeditor-all.js")"></script>
   <script src="@routes.Assets.at("javascripts/modules/manage/flowers.js")"></script>
+
+  <script>
+  $(function() {
+    var $numberCount = $('#number-count');
+    var data = eval('(' + $numberCount.data('json') + ')');
+    var html = [];
+    $.each(data, function(k, v) {
+      html.push('鲜花编号' + k + ':数量' + v + '<br>');
+    });
+    $numberCount.html(html.join(''));
+  });
+  </script>
 
 </body>
 </html>

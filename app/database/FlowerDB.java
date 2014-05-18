@@ -134,6 +134,7 @@ public class FlowerDB {
     params.add(flower.price);
     params.add(flower.image);
     params.add(flower.detail);
+    System.out.println("=================detail : " + flower.detail);
     params.add(flower.classify);
     params.add(flower.id);
     Query.update("update flower set title=?, abstract=?, price=?, image=?, detail=?, classify=? where id=?", params);

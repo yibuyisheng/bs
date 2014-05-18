@@ -49,4 +49,9 @@ public class CartDB {
         params.add(uid);
         Query.update("delete from cart where userId=?", params);
     }
+
+    public static void modifyCount(int id, int count) throws Exception {
+        String sql = "update cart set count=" + count + "  where id=" + id;
+        Query.update(sql, null);
+    }
 }

@@ -118,8 +118,8 @@ public class ManageController extends Base {
     String classify = getString("classify", "");
 
     ObjectNode result = Json.newObject();
-    validate(title, abs, price, image, detail, classify, result);
-    if (result.has("status")) return ok(result);
+    // validate(title, abs, price, image, detail, classify, result);
+    // if (result.has("status")) return ok(result);
 
     Flower flower = new Flower();
     flower.id = fid;

@@ -40,6 +40,7 @@ $(function() {
   $form.find('.btn').on('click', function() {
     if (!editor) return showError('控件尚未加载完毕，休息会儿吧！');
 
+    $detail.val(editor.html());
     $.ajax({
       type: 'post',
       url: '/manage/flower/modify/' + $id.val(),

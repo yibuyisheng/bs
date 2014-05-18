@@ -31,4 +31,13 @@ public class FlowerComment {
     this.kind = kind;
     this.flowerId = flowerId;
   }
+
+  public static String kindStr(int kind) {
+    switch (kind) {
+      case 1: return "购买前";
+      case 2: return "购买后";
+      case 3: return "收货后";
+      default: return "未知";
+    }
+  }
 }

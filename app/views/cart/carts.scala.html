@@ -29,7 +29,7 @@
                             <td>@c.id</td>
                             <td>@f.title</td>
                             <td>@f.price</td>
-                            <td>@c.count</td>
+                            <td>@c.count<a href="javascript:;" class="modify-count" data-id="@c.id" data-price="@(f.price*c.count)" data-count="@c.count" style="font-size:12px;">修改</a></td>
                             <td>
                                 <a href="javascript:;" data-cid="@c.id" class="del">删除</a>
                             </td>
@@ -47,6 +47,37 @@
             </tfoot>
           </table>
         </div>
+    </div>
+  </div>
+
+  <div class="modal fade modify-count-box">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">修改数量</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">价格</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="price" readonly="readonly">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">数量</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="count">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary">确定修改</button>
+        </div>
+      </div>
     </div>
   </div>
 

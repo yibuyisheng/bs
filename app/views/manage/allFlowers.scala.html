@@ -43,7 +43,10 @@
             <td>
               <a href="@views.html.common.flowerImgUrl(flower.image)" target="_blank" title="@views.html.common.flowerImgUrl(flower.image)">预览</a>
             </td>
-            <td>@flower.detail</td>
+            <td>
+              <div title="@flower.detail" style="width: 118px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display: inline-block;">
+                @flower.detail
+              </td>
             <td>@flower.classify</td>
             <td>
               <a href="/manage/flower/modify/@flower.id" target="_blank">修改</a>

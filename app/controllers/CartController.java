@@ -56,4 +56,14 @@ public class CartController extends Base {
         CartDB.delete(cid, self.get().id);
         return ok(result.put("status", 1));
     }
+
+    public static Result modifyCount(int id) throws Exception {
+        Option<User> self = self();
+        if (!self.isDefined()) return ok(Json.newObject().put("status", -1).put("msg", "请登录！"));
+
+        String count = getString("count", "");
+        CartDB.modifyCount(id, Integer.parseInt(count));
+
+        return ok(Json.newObject().put("status", 1));
+    }
 }
