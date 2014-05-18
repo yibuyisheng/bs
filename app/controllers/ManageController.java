@@ -213,7 +213,9 @@ public class ManageController extends Base {
   }
 
   public static Result updateOrderState(int id, int state) throws Exception {
-    if (!isAdmin()) {
+    Order order = OrderDB.get(id);
+    Option<User> self = self();
+    if (!self.isDefined() || !isAdmin() || order.userId != self.get().id) {
       return ok(Json.newObject().put("status", -1));
     }
 

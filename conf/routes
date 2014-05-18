@@ -53,6 +53,7 @@ GET     /cash                       controllers.CashController.cash()
 GET     /orders                     controllers.CashController.orders()
 POST    /order/create               controllers.CashController.createOrder()
 GET     /order/detail/:id           controllers.CashController.order(id: Int)
+POST    /order/receive/:id          controllers.ManageController.updateOrderState(id: Int, state: Int=3)
 
 GET     /forum                      controllers.ForumController.forum()
 GET     /forum/add                  controllers.ForumController.add()

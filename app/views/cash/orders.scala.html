@@ -47,8 +47,8 @@
             </td>
             <td>
               <a href="/order/detail/@order.id" target="_blank">详细</a>
-              @if(order.state == 1){
-                <a class="send" href="javascript:;" data-oid="@order.id" target="_blank">发货</a>
+              @if(order.state == 2){
+                <a class="confirm-receive" href="javascript:;" data-id="@order.id">确认收货</a>
               }
             </td>
           </tr>

@@ -56,4 +56,21 @@ $(function() {
       $('.success').modal('show').find('.modal-body').html('提交成功！');
     });
   });
+
+  // 确认收货
+  $('.confirm-receive').on('click', function() {
+    $('.confirm-dialog').modal().find('.modal-body').html('请注意货物确实已经送达，否则货财两空，确定收货吗？');
+    $('.confirm-dialog').find('.modal-title').html('提示');
+
+    var id = $(this).data('id');
+    $('.confirm-dialog .btn-primary').off('click').on('click', function() {
+      $.ajax({
+        type: 'post',
+        url: '/order/receive/' + id
+      }).done(function(data) {
+        if (data.status != 1) showError(data.msg ? data.msg : '未知错误！');
+        window.location.reload();
+      });
+    });
+  });
 });
