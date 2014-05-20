@@ -44,6 +44,15 @@
       </a>
       <div class="media-body">
         @Html(comment.content)
+        @if(comment.reply != null && comment.reply != ""){
+          <div>
+            <hr />
+            <p><strong>店主回复</strong></p>
+            <div>
+              @Html(comment.reply)
+            </div>
+          </div>
+        }
       </div>
     </div>
   }

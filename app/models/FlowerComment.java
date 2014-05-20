@@ -15,21 +15,25 @@ public class FlowerComment {
   public int flowerId;
   public Flower flower;
 
+  public String reply;
+
   public FlowerComment() {}
-  public FlowerComment(int id, String content, int providerId, Date createDate, int kind, int flowerId) {
+  public FlowerComment(int id, String content, int providerId, Date createDate, int kind, int flowerId, String reply) {
     this.id = id;
     this.content = content;
     this.providerId = providerId;
     this.createDate = createDate;
     this.kind = kind;
     this.flowerId = flowerId;
+    this.reply = reply;
   }
-  public FlowerComment(String content, int providerId, Date createDate, int kind, int flowerId) {
+  public FlowerComment(String content, int providerId, Date createDate, int kind, int flowerId, String reply) {
     this.content = content;
     this.providerId = providerId;
     this.createDate = createDate;
     this.kind = kind;
     this.flowerId = flowerId;
+    this.reply = reply;
   }
 
   public static String kindStr(int kind) {

@@ -94,7 +94,8 @@ public class FlowerController extends Base {
             self.get().id, 
             new Date(), 
             kind, 
-            fid
+            fid,
+            ""
         );
         FlowerCommentDB.save(comment);
         return ok(result.put("status", 1));

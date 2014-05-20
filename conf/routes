@@ -37,6 +37,8 @@ GET     /manage/notice              controllers.ManageController.notices()
 POST    /manage/notice/add          controllers.ManageController.addNotice()
 POST    /manage/notice/modify/:id   controllers.ManageController.modifyNotice(id: Int)
 POST    /manage/notice/del/:id      controllers.ManageController.delNotice(id: Int)
+GET     /manage/flower-comments     controllers.ManageController.flowerComments()
+POST    /manage/flower-comment/reply/:id   controllers.ManageController.flowerCommentReply(id: Int)
 
 GET     /flower/add                 controllers.ManageController.flowerAdd()
 POST    /flower/add/ajax            controllers.ManageController.addFlowerAjax()

@@ -325,4 +325,40 @@ public class ManageController extends Base {
 
     return ok(Json.newObject().put("status", 1));
   }
+
+  // 鲜花评价管理
+  public static Result flowerComments() throws Exception {
+    if (!isAdmin()) return redirect("/user/login?url=" + request().path());
+
+    String page = request().getQueryString("page");
+    if (page == null || page == "") page = "1";
+    int pageIndex = Integer.parseInt(page);
+    if (pageIndex < 1) pageIndex = 1;
+
+    int pageSize = 10;
+
+    List<FlowerComment> flowerComments = FlowerCommentDB.getAll((pageIndex - 1) * pageSize, pageSize);
+    List<Integer> userIds = new LinkedList<Integer>();
+    for (FlowerComment comment : flowerComments) userIds.add(comment.providerId);
+    Map<Integer, User> userIdUserMap = UserDB.getByIds(userIds);
+    for (FlowerComment comment : flowerComments) {
+      if (userIdUserMap.containsKey(comment.providerId)) {
+        comment.provider = userIdUserMap.get(comment.providerId);
+      }
+    }
+
+    long count = FlowerCommentDB.getCount();
+    int totalPage = (int)(count % pageSize == 0 ? count / pageSize : (count / pageSize + 1));
+
+    return ok(views.html.manage.allFlowerComments.render(flowerComments, pageIndex, pageSize, totalPage, request()));
+  }
+  public static Result flowerCommentReply(int id) throws Exception {
+    if (!isAdmin()) {
+      return ok(Json.newObject().put("status", -1));
+    }
+
+    FlowerCommentDB.reply(id, getString("reply", ""));
+
+    return ok(Json.newObject().put("status", 1));
+  }
 }
