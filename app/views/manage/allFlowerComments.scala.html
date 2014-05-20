@@ -1,0 +1,113 @@
+@(flowerComments: List[FlowerComment], page: Int, pageSize: Int, totalPage: Int, request: play.mvc.Http.Request)
+<!DOCTYPE html>
+<html>
+<head>
+  <title>鲜花评价管理</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="@routes.Assets.at("lib/bootstrap/dist/css/bootstrap.min.css")">
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  @views.html.manage.common.header(request)
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>编号</th>
+          <th>内容</th>
+          <th>评价者</th>
+          <th>评价日期</th>
+          <th>评价类型</th>
+          <th>鲜花编号</th>
+          <th>已回复／未回复</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(comment <- flowerComments){
+          <tr>
+            <td>@comment.id</td>
+            <td>@comment.content.slice(0, 20)@if(comment.content.length > 20){...}</td>
+            <td>
+              @if(comment.provider != null){
+                @comment.provider.nickname
+              }else{
+                @comment.providerId
+              }
+            </td>
+            <td>@comment.createDate</td>
+            <td>
+              @FlowerComment.kindStr(comment.kind)
+            </td>
+            <td>
+              <a href="/flower/@comment.flowerId" target="_blank">@comment.flowerId</a>
+            </td>
+            <td>@if(comment.reply != null && comment.reply != ""){已回复}else{未回复}</td>
+            <td>
+              <a href="javascript:;" class="reply" data-id="@comment.id">回复</a>
+              <i class="hide content">@if(comment.content != null){@Html(comment.content)}</i>
+              <i class="hide reply">@if(comment.reply != null){@Html(comment.reply)}</i>
+            </td>
+          </tr>
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8" align="right">
+            @views.html.common.page("/manage/flower-comments", page, pageSize, totalPage)
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="modal fade reply-box">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">回复</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">评价内容</label>
+              <div class="col-sm-10 content"></div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">回复内容</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" name="reply" placeholder="请输入回复内容"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary">确定回复</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @views.html.common.dialog()
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="@routes.Assets.at("lib/jquery/dist/jquery.min.js")"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="@routes.Assets.at("lib/bootstrap/dist/js/bootstrap.min.js")"></script>
+
+  <script src="@routes.Assets.at("lib/kind-editor/kindeditor-all.js")"></script>
+  <script src="@routes.Assets.at("javascripts/modules/manage/flowerComments.js")"></script>
+
+</body>
+</html>
