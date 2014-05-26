@@ -31,14 +31,14 @@
         <li class="
           @if(menuClassify.get(parent).length > 0){dropdown} 
           @if(currentClassify.isDefined && (currentClassify.get.id == parent.id || currentClassify.get.parent == parent.id)){active}">
-          <a href="/classify/@parent.id"@if(menuClassify.get(parent).length > 0){ class="dropdown-toggle" data-toggle="dropdown"}>
+          <a href="/classify/@parent.id"@if(menuClassify.get(parent).length > 0){ class="dropdown-toggle" data-toggle="dropdown"} style="color:black;">
             @parent.name
             @if(menuClassify.get(parent).length > 0){<b class="caret"></b>}
           </a>
           @if(menuClassify.get(parent).length > 0){
             <ul class="dropdown-menu" role="menu">
               @menuClassify.get(parent).map{ c =>
-                <li><a href="/classify/@c.id">@c.name</a></li>
+                <li><a href="/classify/@c.id" style="color:black;">@c.name</a></li>
               }
             </ul>
           }
